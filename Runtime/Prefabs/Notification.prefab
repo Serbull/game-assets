@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4492857383644394678}
   - component: {fileID: 23603995037412745}
   - component: {fileID: 6234626486648319745}
-  - component: {fileID: 6019463550494246686}
   - component: {fileID: 884518160480200438}
   - component: {fileID: 3484020503538159078}
   - component: {fileID: 537555433362096655}
+  - component: {fileID: 3267867058501699171}
   m_Layer: 5
   m_Name: Notification
   m_TagString: Untagged
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3150707d3f1e24a92817036c94b55984, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 53cd13ddbe8d4010bdee0177a45666f0, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -80,19 +80,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.5
---- !u!114 &6019463550494246686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1158257000741998090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58be7b0c47e974dea9f8250a159f2d70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _text: {fileID: 4918328676449978149}
 --- !u!114 &884518160480200438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +142,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3267867058501699171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158257000741998090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a64eb9d4b4a4dfda127a49a4e70f5d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 4918328676449978149}
 --- !u!1 &8636392762345856793
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,8 +222,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Message
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 847dbe3936272492a933812a4374a4c9, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: bb43a1a294fbd4ff59ce943673c3a9f8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7b6d58b3d51443e3b5110ed2f9be9b2c, type: 2}
+  m_sharedMaterial: {fileID: 6721959977792205236, guid: 7b6d58b3d51443e3b5110ed2f9be9b2c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
