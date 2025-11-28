@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Serbull.GameAssets
 {
-    public class Notification : Singleton<Notification>
+    public class Notification : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _text;
 

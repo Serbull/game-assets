@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Serbull.GameAssets
 {
-    public class RewardPreviewPopup : Singleton<RewardPreviewPopup>
+    public class RewardPreviewPopup : MonoBehaviour
     {
         [SerializeField] private Transform _content;
         [SerializeField] private RewardPreviewSlot _slotPrefab;

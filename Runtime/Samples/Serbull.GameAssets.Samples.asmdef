@@ -1,0 +1,17 @@
+{
+    "name": "Serbull.GameAssets.Samples",
+    "rootNamespace": "Serbull.GameAssets.Samples",
+    "references": [
+        "Serbull.GameAssets",
+        "Unity.TextMeshPro"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
