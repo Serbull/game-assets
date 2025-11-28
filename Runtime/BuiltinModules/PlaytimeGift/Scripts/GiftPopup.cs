@@ -12,10 +12,9 @@ namespace Serbull.GameAssets.PlaytimeGift
         private void Awake()
         {
             _closeButton.onClick.AddListener(CloseButton_OnClick);
-            Init();
         }
 
-        private void Init()
+        private void OnEnable()
         {
             var config = SGAManager.Installer.PlaytimeGiftConfig;
 
