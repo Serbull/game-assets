@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Datas:
   - Resource: money
-    Color: rare
+    Color: uncommon
     Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
     Count: 500
     Time: 10
