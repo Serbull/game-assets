@@ -7,6 +7,7 @@ namespace Serbull.GameAssets.PlaytimeGift
     public class GiftButton : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private GameObject _ntf;
 
         private float _lastUpdateTime = float.MinValue;
         private float _timeLeft;
@@ -37,6 +38,8 @@ namespace Serbull.GameAssets.PlaytimeGift
                 _lastUpdateTime = Time.time;
 
                 UpdateTimeLeft();
+
+                _ntf.SetActive(_timeLeft <= 0);
 
                 if (_timeLeft > 0)
                 {

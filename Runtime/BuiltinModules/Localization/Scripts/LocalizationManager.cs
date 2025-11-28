@@ -38,7 +38,6 @@ namespace Serbull.GameAssets.Localization
             {
                 if (!_localizations.Contains(loc, loc))
                 {
-                    Debug.Log("add loc " + loc.Id);
                     _localizations.Add(loc);
                 }
             }
