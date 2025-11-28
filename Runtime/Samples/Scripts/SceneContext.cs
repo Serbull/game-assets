@@ -8,7 +8,7 @@ namespace Serbull.GameAssets.Samples
 
         private void Awake()
         {
-            _sgaInstaller.Init();
+            _sgaInstaller.Init(new ResourceGiver(), "en");
         }
     }
 }

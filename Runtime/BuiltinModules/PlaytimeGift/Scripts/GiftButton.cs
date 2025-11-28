@@ -1,0 +1,68 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace Serbull.GameAssets.PlaytimeGift
+{
+    public class GiftButton : MonoBehaviour
+    {
+        [SerializeField] private TextMeshProUGUI _text;
+
+        private float _lastUpdateTime = float.MinValue;
+        private float _timeLeft;
+
+        private GiftConfig _config;
+
+        private void Awake()
+        {
+            GetComponent<Button>().onClick.AddListener(Button_OnClick);
+        }
+
+        private void Start()
+        {
+            _config = SGAManager.Installer.PlaytimeGiftConfig;
+
+            UpdateTimeLeft();
+        }
+
+        private void Button_OnClick()
+        {
+            SGAManager.Installer.PlaytimeGiftPopup.gameObject.SetActive(true);
+        }
+
+        private void Update()
+        {
+            if (Time.time - _lastUpdateTime >= 1f)
+            {
+                _lastUpdateTime = Time.time;
+
+                UpdateTimeLeft();
+
+                if (_timeLeft > 0)
+                {
+                    int minutes = Mathf.FloorToInt(_timeLeft / 60);
+                    int seconds = Mathf.FloorToInt(_timeLeft % 60);
+                    _text.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+                }
+                else
+                {
+                    _text.text = Localization.LocalizationManager.GetText("ready");
+                }
+            }
+        }
+
+        private void UpdateTimeLeft()
+        {
+            var nearestGift = GiftManager.GetNearestGift();
+            if (nearestGift >= 0)
+            {
+                var totalTime = _config.GetReward(nearestGift).Time;
+                _timeLeft = totalTime - Time.time;
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
+        }
+    }
+}
