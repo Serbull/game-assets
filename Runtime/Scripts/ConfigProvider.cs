@@ -25,7 +25,7 @@ namespace Serbull.GameAssets
             var assetFullName = assetName + ".asset";
             var localDevPath = LocalDevPath + assetFullName;
             var packagePath = PackagePath + assetFullName;
-            var opyTargetPath = CopyTargetPath + assetFullName;
+            var copyTargetPath = CopyTargetPath + assetFullName;
 
 #if UNITY_EDITOR
             if (File.Exists(localDevPath))
@@ -33,9 +33,9 @@ namespace Serbull.GameAssets
                 return AssetDatabase.LoadAssetAtPath<T>(localDevPath);
             }
 
-            if (!File.Exists(CopyTargetPath) && File.Exists(packagePath))
+            if (!File.Exists(copyTargetPath) && File.Exists(packagePath))
             {
-                File.Copy(packagePath, CopyTargetPath);
+                File.Copy(packagePath, copyTargetPath);
                 AssetDatabase.Refresh();
             }
 #endif
