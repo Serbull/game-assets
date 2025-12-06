@@ -34,7 +34,7 @@ namespace Serbull.GameAssets.PlaytimeGift
             _icon.sprite = giftData.Icon;
             _countTxt.text = "x" + giftData.Count.ToShortValue();
             _doneMark.SetActive(isDone);
-            var bgColor = SGAManager.Installer.RareConfig.GetRareData(giftData.Color).Color;
+            var bgColor = Services.Rare.Config.GetRareData(giftData.Color).Color;
             GetComponent<Image>().color = bgColor;
             UpdateTakeButton();
             StartCoroutine(Timer());
@@ -57,7 +57,7 @@ namespace Serbull.GameAssets.PlaytimeGift
             if (_timeLeft <= 0)
             {
                 _isDone = true;
-                GiftManager.ClaimReward(_id);
+                Services.PlaytimeGift.ClaimReward(_id);
                 UpdateTakeButton();
                 _doneMark.SetActive(true);
             }
@@ -81,7 +81,7 @@ namespace Serbull.GameAssets.PlaytimeGift
 
                 if (_timeLeft <= 0)
                 {
-                    _timeTxt.text = Localization.LocalizationManager.GetText("claim");
+                    _timeTxt.text = Services.Localization.GetText("claim");
                 }
             }
         }

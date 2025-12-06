@@ -16,7 +16,7 @@ namespace Serbull.GameAssets.PlaytimeGift
 
         private void OnEnable()
         {
-            var config = SGAManager.Installer.PlaytimeGiftConfig;
+            var config = Services.PlaytimeGift.Config;
 
             foreach (Transform child in _content)
             {

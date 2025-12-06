@@ -23,7 +23,7 @@ namespace Serbull.GameAssets.Localization
 
         protected void UpdateText()
         {
-            var text = string.Format(LocalizationManager.GetText(_id), _arg0);
+            var text = string.Format(Services.Localization.GetText(_id), _arg0);
 
             if (_text != null && text != null)
             {

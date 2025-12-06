@@ -8,7 +8,7 @@ namespace Serbull.GameAssets.Localization
 
         private void Awake()
         {
-            LocalizationManager.AddLocalization(Localizations);
+            Services.Localization.AddLocalization(Localizations);
         }
     }
 }

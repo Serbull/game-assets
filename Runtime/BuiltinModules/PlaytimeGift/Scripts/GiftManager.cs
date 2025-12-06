@@ -3,20 +3,22 @@ using UnityEngine;
 
 namespace Serbull.GameAssets.PlaytimeGift
 {
-    public class GiftManager
+    public class GiftManager : IPlaytimeGiftService
     {
-        private static GiftConfig _giftConfig;
-        private static IResourceGiver _resourceGiver;
+        private readonly GiftConfig _giftConfig;
+        private readonly IResourceGiver _resourceGiver;
 
         public static readonly List<int> ClaimedList = new();
 
-        public static void Init(GiftConfig giftConfig, IResourceGiver resourceGiver)
+        public GiftConfig Config => _giftConfig;
+
+        public GiftManager(GiftConfig giftConfig, IResourceGiver resourceGiver)
         {
             _giftConfig = giftConfig;
             _resourceGiver = resourceGiver;
         }
 
-        public static int GetNearestGift()
+        public int GetNearestGiftId()
         {
             for (int i = 0; i < _giftConfig.Datas.Length; i++)
             {
@@ -31,12 +33,12 @@ namespace Serbull.GameAssets.PlaytimeGift
             return -1;
         }
 
-        public static void ClaimReward(int id)
+        public void ClaimReward(int id)
         {
             ClaimedList.Add(id);
             var data = _giftConfig.GetReward(id);
             var item = new RewardPreviewItem("", "", data.Icon, data.Count, true, Color.white, Color.white, Color.white);
-            SGAManager.RewardPreviewPopup.Show(item);
+            Services.UI.RewardPreviewPopup.Show(item);
             _resourceGiver.AddResource(data.Resource, data.Count);
         }
     }

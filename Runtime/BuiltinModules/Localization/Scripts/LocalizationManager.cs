@@ -4,18 +4,18 @@ using System.Linq;
 
 namespace Serbull.GameAssets.Localization
 {
-    public class LocalizationManager
+    public class LocalizationManager : ILocalizationService
     {
-        private static HashSet<LocalizationData> _localizations = new();
-        private static string _language;
+        private readonly HashSet<LocalizationData> _localizations = new();
+        private readonly string _language;
 
-        public static void Init(LocalizationConfig config, string langugage)
+        public LocalizationManager(LocalizationConfig config, string langugage)
         {
             AddLocalization(config.Localizations);
             _language = langugage;
         }
 
-        public static string GetText(string id)
+        public string GetText(string id)
         {
             foreach (var loc in _localizations)
             {
@@ -32,7 +32,7 @@ namespace Serbull.GameAssets.Localization
             return id;
         }
 
-        public static void AddLocalization(params LocalizationData[] localizationData)
+        public void AddLocalization(params LocalizationData[] localizationData)
         {
             foreach (var loc in localizationData)
             {

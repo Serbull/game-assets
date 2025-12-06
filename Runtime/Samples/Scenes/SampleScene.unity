@@ -192,18 +192,6 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4492857383644394678, guid: d4e6796a8635842bb9b9ea8354f25e74, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4492857383644394678, guid: d4e6796a8635842bb9b9ea8354f25e74, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4492857383644394678, guid: d4e6796a8635842bb9b9ea8354f25e74, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4492857383644394678, guid: d4e6796a8635842bb9b9ea8354f25e74, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -233,11 +221,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4492857383644394678, guid: d4e6796a8635842bb9b9ea8354f25e74, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 2884.0042
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4492857383644394678, guid: d4e6796a8635842bb9b9ea8354f25e74, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1765.5093
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 4492857383644394678, guid: d4e6796a8635842bb9b9ea8354f25e74, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1280,9 +1268,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _usePlaytimeGift: 1
+  _useAudio: 0
   LocalizationConfig: {fileID: 11400000, guid: 2d105407e60aa4704a3aeb6c820731f9, type: 2}
   RareConfig: {fileID: 11400000, guid: 832faf0ec43604b8a88ffaa4ddf9e681, type: 2}
   PlaytimeGiftConfig: {fileID: 11400000, guid: 4f4f4396669a54fce8fab7e4c73c002e, type: 2}
+  AudioConfig: {fileID: 11400000, guid: e6ee4351fc02a4fa6bfdf866ed651dd6, type: 2}
   PlaytimeGiftPopup: {fileID: 606192098}
   RewardPreviewPopup: {fileID: 1674512120}
   Notification: {fileID: 290659476}

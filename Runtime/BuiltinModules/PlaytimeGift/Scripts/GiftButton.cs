@@ -21,14 +21,14 @@ namespace Serbull.GameAssets.PlaytimeGift
 
         private void Start()
         {
-            _config = SGAManager.Installer.PlaytimeGiftConfig;
+            _config = Services.PlaytimeGift.Config;
 
             UpdateTimeLeft();
         }
 
         private void Button_OnClick()
         {
-            SGAManager.Installer.PlaytimeGiftPopup.gameObject.SetActive(true);
+            Services.UI.PlaytimeGiftPopup.gameObject.SetActive(true);
         }
 
         private void Update()
@@ -49,14 +49,14 @@ namespace Serbull.GameAssets.PlaytimeGift
                 }
                 else
                 {
-                    _text.text = Localization.LocalizationManager.GetText("ready");
+                    _text.text = Services.Localization.GetText("ready");
                 }
             }
         }
 
         private void UpdateTimeLeft()
         {
-            var nearestGift = GiftManager.GetNearestGift();
+            var nearestGift = Services.PlaytimeGift.GetNearestGiftId();
             if (nearestGift >= 0)
             {
                 var totalTime = _config.GetReward(nearestGift).Time;
