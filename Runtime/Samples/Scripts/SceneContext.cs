@@ -8,7 +8,11 @@ namespace Serbull.GameAssets.Samples
 
         private void Awake()
         {
-            _sgaInstaller.Init(new ResourceGiver(), "en");
+            var saveData = new SaveData();
+            var resourceGiver = new ResourceGiver();
+            var luckySpin = new LuckySpin(saveData);
+
+            _sgaInstaller.Init(resourceGiver, luckySpin, "en");
         }
     }
 }

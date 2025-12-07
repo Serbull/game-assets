@@ -15,9 +15,5 @@ MonoBehaviour:
   AudioMixer: {fileID: 24100000, guid: aa4cd82f3c8a844e0a6d766376871ae7, type: 2}
   MusicMixerGroup: {fileID: -2467963996404691679, guid: aa4cd82f3c8a844e0a6d766376871ae7, type: 2}
   SoundMixerGroup: {fileID: -3869378892971172530, guid: aa4cd82f3c8a844e0a6d766376871ae7, type: 2}
-  Musics:
-  - Id: bg
-    Clips: []
-    Volume: 0
-    PlayOnStart: 1
+  Musics: []
   Sounds: []

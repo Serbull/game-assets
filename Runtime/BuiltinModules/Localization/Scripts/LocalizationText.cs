@@ -9,7 +9,7 @@ namespace Serbull.GameAssets.Localization
         [SerializeField] private string _id;
 
         private TextMeshProUGUI _text;
-        private string _arg0;
+        private string[] _args = new string[0];
 
         private void Awake()
         {
@@ -23,18 +23,42 @@ namespace Serbull.GameAssets.Localization
 
         protected void UpdateText()
         {
-            var text = string.Format(Services.Localization.GetText(_id), _arg0);
-
-            if (_text != null && text != null)
+            var locText = Services.Localization.GetText(_id);
+            if (_args.Length > 0)
             {
-                _text.text = text;
+                locText = string.Format(locText, _args);
+            }
+
+            if (_text != null && locText != null)
+            {
+                _text.text = locText;
             }
         }
 
-        public void SetLocalizationId(string id, object arg0 = null)
+        public void SetLocalizationId(string id)
         {
             _id = id;
-            _arg0 = arg0?.ToString();
+            UpdateText();
+        }
+
+        public void SetLocalizationId(string id, params object[] args)
+        {
+            _id = id;
+            System.Array.Resize(ref _args, args.Length);
+            for (int i = 0; i < _args.Length; i++)
+            {
+                _args[i] = args[i].ToString();
+            }
+            UpdateText();
+        }
+
+        public void SetArguments(params object[] args)
+        {
+            System.Array.Resize(ref _args, args.Length);
+            for (int i = 0; i < _args.Length; i++)
+            {
+                _args[i] = args[i].ToString();
+            }
             UpdateText();
         }
 

@@ -26,3 +26,9 @@ MonoBehaviour:
   - Id: claim
     En: Claim
     Ru: "\u0417\u0430\u0431\u0440\u0430\u0442\u044C"
+  - Id: spin
+    En: Spin ({0})
+    Ru: "\u041A\u0440\u0443\u0442\u0438\u0442\u044C ({0})"
+  - Id: free_spin_timer
+    En: +1 Spin in {0}
+    Ru: "+1 \u0421\u043F\u0438\u043D \u0447\u0435\u0440\u0435\u0437 ({0})"

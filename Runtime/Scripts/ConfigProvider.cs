@@ -12,8 +12,9 @@ namespace Serbull.GameAssets
         {
             Localization,
             Rare,
-            PlaytimeGift,
             Audio,
+            PlaytimeGift,
+            Roulette,
         }
 
         private const string LocalDevPath = "Assets/Serbull/Game Assets/Editor/Scriptables/";
