@@ -88,7 +88,7 @@ namespace Serbull.GameAssets
             }
 
             //Audio
-            if (_useAudio && Services.Audio == null)
+            if (_useAudio)
             {
                 var audioManager = new GameObject("AudioManager").AddComponent<Audio.AudioManager>();
                 audioManager.Init(AudioConfig);
