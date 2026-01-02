@@ -18,11 +18,25 @@ namespace Serbull.GameAssets.Localization
 
         private void OnEnable()
         {
+            EventBus.Subscribe<UpdateLocalizationEvent>(OnLocalizationUpdated);
+            UpdateText();
+        }
+
+        private void OnDisable()
+        {
+            EventBus.Unsubscribe<UpdateLocalizationEvent>(OnLocalizationUpdated);
+        }
+
+        private void OnLocalizationUpdated(UpdateLocalizationEvent e)
+        {
             UpdateText();
         }
 
         protected void UpdateText()
         {
+            if (Services.Localization == null)
+                return;
+
             var locText = Services.Localization.GetText(_id);
             if (_args.Length > 0)
             {

@@ -4,6 +4,8 @@ using System.Linq;
 
 namespace Serbull.GameAssets.Localization
 {
+    public struct UpdateLocalizationEvent { }
+
     public class LocalizationManager : ILocalizationService
     {
         private readonly HashSet<LocalizationData> _localizations = new();
@@ -13,6 +15,7 @@ namespace Serbull.GameAssets.Localization
         {
             AddLocalization(config.Localizations);
             _language = langugage;
+            EventBus.Publish(new UpdateLocalizationEvent());
         }
 
         public string GetText(string id)
