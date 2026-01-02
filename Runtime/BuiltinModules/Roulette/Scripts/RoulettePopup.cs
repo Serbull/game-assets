@@ -82,11 +82,11 @@ namespace Serbull.GameAssets.Roulette
             if (_isSpinning)
                 return;
 
-            if (Services.Roulette.LuckySpin.Amount <= 0)
+            if (Services.Roulette.SaveData.SpinCount <= 0)
                 return;
 
             _isSpinning = true;
-            Services.Roulette.SpendLuckySpin(1);
+            Services.Roulette.SpendSpin(1);
 
             var winningIndex = MathfUtils.GetRandomIndexByWeight(Services.Roulette.Config.GetWeightIndexes());
             var reward = Services.Roulette.Config.Parts[winningIndex].Reward;
@@ -129,11 +129,9 @@ namespace Serbull.GameAssets.Roulette
 
         public void UpdateUI()
         {
-            var amount = Services.Roulette.LuckySpin.Amount;
+            var amount = Services.Roulette.SaveData.SpinCount;
             _spinButtonTxt.SetArguments(amount);
             _spinNotificator.SetActive(amount > 0);
-
-            //_iapAddedValueTxt.SetLocalizationId("spin_plus", Configs.Instance.FortuneWheelConfig.IapAddedValue);
         }
 
         private void CloseButton_OnClick()

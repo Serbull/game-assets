@@ -67,7 +67,7 @@ namespace Serbull.GameAssets
         }
 #endif
 
-        public void Init(IResourceGiver resourceGiver, ICurrency luckySpin, string language = "en")
+        public void Init(IResourceGiver resourceGiver, Roulette.RouletteData rouletteData, string language = "en")
         {
             //UI
             var uiService = new UIManager(RewardPreviewPopup, Notification, PlaytimeGiftPopup, RoulettePopup);
@@ -105,7 +105,7 @@ namespace Serbull.GameAssets
             //Roulette
             if (_useRoulette)
             {
-                var rouletteManager = new Roulette.RouletteManager(RouletteConfig, resourceGiver, luckySpin);
+                var rouletteManager = new Roulette.RouletteManager(RouletteConfig, resourceGiver, rouletteData);
                 Services.Roulette = rouletteManager;
             }
         }

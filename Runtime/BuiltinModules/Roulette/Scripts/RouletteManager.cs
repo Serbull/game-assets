@@ -18,27 +18,27 @@ namespace Serbull.GameAssets.Roulette
 
         private readonly RouletteConfig _config;
         private readonly IResourceGiver _resourceGiver;
-        private readonly ICurrency _luckySpin;
+        private readonly RouletteData _rouletteData;
 
-        public RouletteManager(RouletteConfig config, IResourceGiver resourceGiver, ICurrency luckySpin)
+        public RouletteManager(RouletteConfig config, IResourceGiver resourceGiver, RouletteData rouletteData)
         {
             _config = config;
             _resourceGiver = resourceGiver;
-            _luckySpin = luckySpin;
+            _rouletteData = rouletteData;
 
             if (_freeSpinTimer == -1)
             {
                 _freeSpinTimer = _config.FreeSpinTimer;
             }
 
-            EventBus.Publish(new ChangeLuckySpinEvent(luckySpin.Amount));
+            EventBus.Publish(new ChangeLuckySpinEvent(rouletteData.SpinCount));
         }
 
         public RouletteConfig Config => _config;
 
-        public ICurrency LuckySpin => _luckySpin;
-
         public float FreeSpinTimer => _freeSpinTimer;
+
+        public RouletteData SaveData => _rouletteData;
 
         public void AddReward(RouletteConfig.RewardData reward)
         {
@@ -54,22 +54,22 @@ namespace Serbull.GameAssets.Roulette
                 _freeSpinTimer -= Time.deltaTime;
                 if (_freeSpinTimer <= 0)
                 {
-                    AddLuckySpin(1);
+                    AddSpin(1);
                     _freeSpinTimer += _config.FreeSpinTimer;
                 }
             }
         }
 
-        public void AddLuckySpin(int amount)
+        public void AddSpin(int amount)
         {
-            _luckySpin.Add(amount);
-            EventBus.Publish(new ChangeLuckySpinEvent(_luckySpin.Amount));
+            _rouletteData.SpinCount += amount;
+            EventBus.Publish(new ChangeLuckySpinEvent(_rouletteData.SpinCount));
         }
 
-        public void SpendLuckySpin(int amount)
+        public void SpendSpin(int amount)
         {
-            _luckySpin.Spend(amount);
-            EventBus.Publish(new ChangeLuckySpinEvent(_luckySpin.Amount));
+            _rouletteData.SpinCount -= amount;
+            EventBus.Publish(new ChangeLuckySpinEvent(_rouletteData.SpinCount));
         }
     }
 }

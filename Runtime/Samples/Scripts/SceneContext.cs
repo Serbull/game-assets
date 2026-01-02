@@ -10,9 +10,8 @@ namespace Serbull.GameAssets.Samples
         {
             var saveData = new SaveData();
             var resourceGiver = new ResourceGiver();
-            var luckySpin = new LuckySpin(saveData);
 
-            _sgaInstaller.Init(resourceGiver, luckySpin, "en");
+            _sgaInstaller.Init(resourceGiver, saveData.RouletteData, "en");
         }
     }
 }
