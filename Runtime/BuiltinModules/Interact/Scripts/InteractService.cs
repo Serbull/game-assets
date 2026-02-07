@@ -64,10 +64,11 @@ namespace Serbull.GameAssets.Interact
                 return;
             }
 
-            Services.UI.InteractButton.Show(interactTrigger.Interactable.InteractObject,
-                interactTrigger.Interactable.InteractOffset,
-                interactTrigger.Interactable.GetInteractText(),
-                interactTrigger.Interactable.Interact);
+            var interactable = interactTrigger.Interactable;
+            Services.UI.InteractButton.Show(interactable.GetInteractObject(out Vector3 interactOffset),
+                interactOffset,
+                interactable.GetInteractText(),
+                interactable.Interact);
         }
     }
 }
