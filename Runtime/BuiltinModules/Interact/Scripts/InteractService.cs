@@ -54,8 +54,7 @@ namespace Serbull.GameAssets.Interact
 
                 foreach (var trigger in _interactTriggers)
                 {
-                    Vector3 directionToTrigger = trigger.transform.position - _cameraTransform.position;
-                    //after can add normalization to avoid distance influence
+                    Vector3 directionToTrigger = (trigger.transform.position - _cameraTransform.position).normalized;
                     float dot = Vector3.Dot(_cameraTransform.forward, directionToTrigger);
 
                     if (dot > bestDot)

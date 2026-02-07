@@ -1,11 +1,14 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class InteractButton : MonoBehaviour
+public class InteractButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private TMPro.TMP_Text _text;
     [SerializeField] private RectTransform _root;
+    [SerializeField] private Transform _interactImage;
+    [SerializeField] private Image _fillImage;
 
     [SerializeField] private GameObject _pc;
     [SerializeField] private GameObject _mobile;
@@ -14,28 +17,42 @@ public class InteractButton : MonoBehaviour
     private Transform _targetObject;
     private Vector3 _targetOffset;
     private Camera _cam;
+    private float _holdTime;
+    private float _currentHoldTime;
+    private bool _isPressed;
 
-    public void SetMobile(bool isMobile)
+    void OnEnable()
     {
-        _pc.SetActive(!isMobile);
-        _mobile.SetActive(isMobile);
+        DeactivatePress();
+    }
+
+    void OnDisable()
+    {
+        DeactivatePress();
     }
 
     private void Start()
     {
         gameObject.SetActive(false);
-        GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
-    public void Show(Transform targetObject, Vector3 targetOffset, string text, Action callback)
+    public void Show(Transform targetObject, Vector3 targetOffset, string text, Action callback, float holdTime = 0.5f)
     {
         _cam = Camera.main;
         _targetObject = targetObject;
         _targetOffset = targetOffset;
         _text.text = text;
         _callback = callback;
+        _holdTime = holdTime;
 
         gameObject.SetActive(true);
+        DeactivatePress();
+    }
+
+    public void SetMobile(bool isMobile)
+    {
+        _pc.SetActive(!isMobile);
+        _mobile.SetActive(isMobile);
     }
 
     public void Hide()
@@ -44,9 +61,10 @@ public class InteractButton : MonoBehaviour
         _callback = null;
 
         gameObject.SetActive(false);
+        DeactivatePress();
     }
 
-    public void OnClick()
+    private void Interact()
     {
         _callback?.Invoke();
     }
@@ -70,9 +88,63 @@ public class InteractButton : MonoBehaviour
 
         _root.position = screenPos;
 
+        CheckInput();
+
+        if (_isPressed)
+        {
+            if (_holdTime > 0f)
+            {
+                _currentHoldTime += Time.deltaTime;
+                _fillImage.fillAmount = Mathf.Clamp01(_currentHoldTime / _holdTime);
+
+                if (_currentHoldTime >= _holdTime)
+                {
+                    Interact();
+                    DeactivatePress();
+                }
+            }
+            else
+            {
+                Interact();
+                DeactivatePress();
+            }
+        }
+    }
+
+    private void CheckInput()
+    {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            OnClick();
+            ActivatePress();
         }
+        else if (Input.GetKeyUp(KeyCode.E))
+        {
+            DeactivatePress();
+        }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        ActivatePress();
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        DeactivatePress();
+    }
+
+    private void ActivatePress()
+    {
+        _isPressed = true;
+        _fillImage.enabled = _holdTime > 0f;
+        _interactImage.localScale = Vector3.one * 1.2f;
+    }
+
+    private void DeactivatePress()
+    {
+        _isPressed = false;
+        _fillImage.enabled = false;
+        _currentHoldTime = 0f;
+        _interactImage.localScale = Vector3.one;
     }
 }
