@@ -64,6 +64,9 @@ namespace Serbull.GameAssets.Interact
 
         public void Hide()
         {
+            if (this == null)
+                return;
+                
             _targetObject = null;
             _callback = null;
 
