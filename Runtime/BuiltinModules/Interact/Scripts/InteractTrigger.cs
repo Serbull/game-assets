@@ -6,6 +6,11 @@ namespace Serbull.GameAssets.Interact
     {
         public IInteractable Interactable;
 
+        private void OnDisable()
+        {
+            Services.InteractService.RemoveInteractTrigger(this);
+        }
+
         private void OnDestroy()
         {
             Services.InteractService.RemoveInteractTrigger(this);
