@@ -64,7 +64,8 @@ namespace Serbull.GameAssets.Interact
                 return;
             }
 
-            Services.UI.InteractButton.Show(interactTrigger.Interactable.GetInteractPoint(),
+            Services.UI.InteractButton.Show(interactTrigger.Interactable.InteractObject,
+                interactTrigger.Interactable.InteractOffset,
                 interactTrigger.Interactable.GetInteractText(),
                 interactTrigger.Interactable.Interact);
         }

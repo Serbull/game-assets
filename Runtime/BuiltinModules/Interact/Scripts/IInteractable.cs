@@ -4,7 +4,8 @@ namespace Serbull.GameAssets.Interact
 {
     public interface IInteractable
     {
-        Transform GetInteractPoint();
+        Transform InteractObject { get; }
+        Vector3 InteractOffset { get; }
         string GetInteractText();
         void Interact();
     }

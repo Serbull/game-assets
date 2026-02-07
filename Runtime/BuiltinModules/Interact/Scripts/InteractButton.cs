@@ -11,7 +11,8 @@ public class InteractButton : MonoBehaviour
     [SerializeField] private GameObject _mobile;
 
     private Action _callback;
-    private Transform _target3D;
+    private Transform _targetObject;
+    private Vector3 _targetOffset;
     private Camera _cam;
 
     public void Init(bool isMobile)
@@ -26,10 +27,11 @@ public class InteractButton : MonoBehaviour
         GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
-    public void Show(Transform target3D, string text, Action callback)
+    public void Show(Transform targetObject, Vector3 targetOffset, string text, Action callback)
     {
         _cam = Camera.main;
-        _target3D = target3D;
+        _targetObject = targetObject;
+        _targetOffset = targetOffset;
         _text.text = text;
         _callback = callback;
 
@@ -38,7 +40,7 @@ public class InteractButton : MonoBehaviour
 
     public void Hide()
     {
-        _target3D = null;
+        _targetObject = null;
         _callback = null;
 
         gameObject.SetActive(false);
@@ -51,14 +53,14 @@ public class InteractButton : MonoBehaviour
 
     private void Update()
     {
-        if (_target3D == null)
+        if (_targetObject == null)
         {
-            Debug.LogWarning("Target3D is null.");
+            Debug.LogWarning("TargetObject is null.");
             Hide();
             return;
         }
 
-        Vector3 screenPos = _cam.WorldToScreenPoint(_target3D.position);
+        Vector3 screenPos = _cam.WorldToScreenPoint(_targetObject.position + _targetOffset);
 
         if (screenPos.z < 0)
         {
