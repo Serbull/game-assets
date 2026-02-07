@@ -11,7 +11,7 @@ namespace Serbull.GameAssets.Samples
             var saveData = new SaveData();
             var resourceGiver = new ResourceGiver();
 
-            _sgaInstaller.Init(resourceGiver, saveData.RouletteData, "en");
+            _sgaInstaller.Init(resourceGiver, saveData.RouletteData, false, "en");
         }
     }
 }

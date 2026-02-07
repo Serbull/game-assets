@@ -69,7 +69,7 @@ namespace Serbull.GameAssets
         }
 #endif
 
-        public void Init(IResourceGiver resourceGiver, Roulette.RouletteData rouletteData, string language = "en")
+        public void Init(IResourceGiver resourceGiver, Roulette.RouletteData rouletteData, bool isMobileDevice, string language = "en")
         {
             //UI
             var uiService = new UIManager(RewardPreviewPopup, Notification, PlaytimeGiftPopup, RoulettePopup, InteractButton);
@@ -116,6 +116,7 @@ namespace Serbull.GameAssets
             {
                 var interactService = new Interact.InteractService(Camera.main.transform);
                 Services.InteractService = interactService;
+                InteractButton.SetMobile(isMobileDevice);
             }
         }
 

@@ -15,7 +15,7 @@ public class InteractButton : MonoBehaviour
     private Vector3 _targetOffset;
     private Camera _cam;
 
-    public void Init(bool isMobile)
+    public void SetMobile(bool isMobile)
     {
         _pc.SetActive(!isMobile);
         _mobile.SetActive(isMobile);
