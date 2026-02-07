@@ -6,13 +6,17 @@ namespace Serbull.GameAssets
         public readonly Notification Notification;
         public readonly PlaytimeGift.GiftPopup PlaytimeGiftPopup;
         public readonly Roulette.RoulettePopup RoulettePopup;
+        public readonly InteractButton InteractButton;
 
-        public UIManager(RewardPreviewPopup rewardPreviewPopup, Notification notification, PlaytimeGift.GiftPopup playtimeGiftPopup, Roulette.RoulettePopup roulettePopup)
+        public UIManager(RewardPreviewPopup rewardPreviewPopup, Notification notification,
+            PlaytimeGift.GiftPopup playtimeGiftPopup, Roulette.RoulettePopup roulettePopup,
+            InteractButton interactButton)
         {
             RewardPreviewPopup = rewardPreviewPopup;
             Notification = notification;
             PlaytimeGiftPopup = playtimeGiftPopup;
             RoulettePopup = roulettePopup;
+            InteractButton = interactButton;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Serbull.GameAssets
         [SerializeField] private bool _useAudio;
         [SerializeField] private bool _usePlaytimeGift;
         [SerializeField] private bool _useRoulette;
+        [SerializeField] private bool _useInteract;
         [Header("Configs")]
         [ReadOnly] public Localization.LocalizationConfig LocalizationConfig;
         [ReadOnly] public Rare.RareConfig RareConfig;
@@ -21,6 +22,7 @@ namespace Serbull.GameAssets
         [ShowIf(nameof(_useRoulette))] public Roulette.RoulettePopup RoulettePopup;
         public RewardPreviewPopup RewardPreviewPopup;
         public Notification Notification;
+        [ShowIf(nameof(_useInteract))] public InteractButton InteractButton;
 
 #if UNITY_EDITOR
         private void OnEnable()
@@ -70,7 +72,7 @@ namespace Serbull.GameAssets
         public void Init(IResourceGiver resourceGiver, Roulette.RouletteData rouletteData, string language = "en")
         {
             //UI
-            var uiService = new UIManager(RewardPreviewPopup, Notification, PlaytimeGiftPopup, RoulettePopup);
+            var uiService = new UIManager(RewardPreviewPopup, Notification, PlaytimeGiftPopup, RoulettePopup, InteractButton);
             Services.UI = uiService;
 
             //Rare
@@ -107,6 +109,13 @@ namespace Serbull.GameAssets
             {
                 var rouletteManager = new Roulette.RouletteManager(RouletteConfig, resourceGiver, rouletteData);
                 Services.Roulette = rouletteManager;
+            }
+
+            //Interact
+            if (_useInteract)
+            {
+                var interactService = new Interact.InteractService(Camera.main.transform);
+                Services.InteractService = interactService;
             }
         }
 

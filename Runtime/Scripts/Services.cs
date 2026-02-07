@@ -1,4 +1,3 @@
-
 namespace Serbull.GameAssets
 {
     public static class Services
@@ -9,5 +8,6 @@ namespace Serbull.GameAssets
         public static IAudioService Audio;
         public static IPlaytimeGiftService PlaytimeGift;
         public static IRouletteService Roulette;
+        public static Interact.InteractService InteractService;
     }
 }
