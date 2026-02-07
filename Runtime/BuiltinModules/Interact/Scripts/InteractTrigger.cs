@@ -18,7 +18,7 @@ namespace Serbull.GameAssets.Interact
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag("Player") && Interactable != null && Interactable.CanInteract)
             {
                 Services.InteractService.AddInteractTrigger(this);
             }
