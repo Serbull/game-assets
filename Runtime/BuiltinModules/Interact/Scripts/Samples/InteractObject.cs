@@ -8,7 +8,7 @@ namespace Serbull.GameAssets
         private IEnumerator Start()
         {
             yield return new WaitForSeconds(1f);
-            Services.UI.InteractButton.Show(transform, Vector3.up * 1.5f, "Interact", OnInteract, 0f);
+            Services.UI.InteractButton.Show(transform, Vector3.up * 1.5f, OnInteract, "Interact", 0.5f);
         }
 
         private void OnInteract()

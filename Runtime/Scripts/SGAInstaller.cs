@@ -22,7 +22,7 @@ namespace Serbull.GameAssets
         [ShowIf(nameof(_useRoulette))] public Roulette.RoulettePopup RoulettePopup;
         public RewardPreviewPopup RewardPreviewPopup;
         public Notification Notification;
-        [ShowIf(nameof(_useInteract))] public InteractButton InteractButton;
+        [ShowIf(nameof(_useInteract))] public Interact.InteractButton InteractButton;
 
 #if UNITY_EDITOR
         private void OnEnable()
