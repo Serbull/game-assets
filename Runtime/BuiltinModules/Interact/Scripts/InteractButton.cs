@@ -67,9 +67,6 @@ namespace Serbull.GameAssets.Interact
             _targetObject = null;
             _callback = null;
 
-            if (gameObject == null)
-                return;
-
             gameObject.SetActive(false);
             DeactivatePress();
         }

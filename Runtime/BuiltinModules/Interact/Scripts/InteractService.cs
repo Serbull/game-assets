@@ -41,7 +41,7 @@ namespace Serbull.GameAssets.Interact
             if (_interactTriggers.Count == 0)
             {
                 _activeInteractable = null;
-                Services.UI.InteractButton.Hide();
+                Services.UI?.InteractButton?.Hide();
                 return;
             }
 
@@ -78,7 +78,7 @@ namespace Serbull.GameAssets.Interact
             }
 
             _activeInteractable = interactTrigger.Interactable;
-            Services.UI.InteractButton.Show(_activeInteractable.GetInteractData());
+            Services.UI?.InteractButton?.Show(_activeInteractable.GetInteractData());
         }
     }
 }
