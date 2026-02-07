@@ -9,6 +9,8 @@ namespace Serbull.GameAssets.Interact
         private readonly HashSet<InteractTrigger> _interactTriggers = new();
         private readonly Transform _cameraTransform;
 
+        private IInteractable _activeInteractable;
+
         public InteractService(Transform cameraTransform)
         {
             _cameraTransform = cameraTransform;
@@ -38,6 +40,7 @@ namespace Serbull.GameAssets.Interact
         {
             if (_interactTriggers.Count == 0)
             {
+                _activeInteractable = null;
                 Services.UI.InteractButton.Hide();
                 return;
             }
@@ -65,14 +68,17 @@ namespace Serbull.GameAssets.Interact
                 }
             }
 
+            if (_activeInteractable == interactTrigger.Interactable)
+                return;
+
             if (interactTrigger.Interactable == null)
             {
                 Debug.LogError("Interactable is null in InteractTrigger");
                 return;
             }
 
-            var interactable = interactTrigger.Interactable;
-            Services.UI.InteractButton.Show(interactable.GetInteractData());
+            _activeInteractable = interactTrigger.Interactable;
+            Services.UI.InteractButton.Show(_activeInteractable.GetInteractData());
         }
     }
 }
