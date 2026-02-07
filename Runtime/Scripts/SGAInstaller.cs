@@ -131,6 +131,11 @@ namespace Serbull.GameAssets
             {
                 Services.Roulette.Update();
             }
+
+            if (_useInteract)
+            {
+                Services.InteractService.Update();
+            }
         }
     }
 }

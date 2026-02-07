@@ -26,6 +26,14 @@ namespace Serbull.GameAssets.Interact
             UpdateInteracts();
         }
 
+        public void Update()
+        {
+            if (_interactTriggers.Count == 0)
+                return;
+
+            UpdateInteracts();
+        }
+
         private void UpdateInteracts()
         {
             if (_interactTriggers.Count == 0)
