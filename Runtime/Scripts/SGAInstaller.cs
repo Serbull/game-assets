@@ -87,6 +87,7 @@ namespace Serbull.GameAssets
             {
                 var localizationManager = new Localization.LocalizationManager(LocalizationConfig, language);
                 Services.Localization = localizationManager;
+                EventBus.Publish(new Localization.UpdateLocalizationEvent());
             }
 
             //Audio
