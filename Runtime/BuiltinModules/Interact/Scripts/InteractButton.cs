@@ -23,19 +23,14 @@ namespace Serbull.GameAssets.Interact
         private float _currentHoldTime;
         private bool _isPressed;
 
-        void OnEnable()
+        private void OnEnable()
         {
             DeactivatePress();
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             DeactivatePress();
-        }
-
-        private void Start()
-        {
-            gameObject.SetActive(false);
         }
 
         public void Show(InteractData interactData)
@@ -66,7 +61,7 @@ namespace Serbull.GameAssets.Interact
         {
             if (this == null)
                 return;
-                
+
             _targetObject = null;
             _callback = null;
 

@@ -118,6 +118,7 @@ namespace Serbull.GameAssets
                 var interactService = new Interact.InteractService(Camera.main.transform);
                 Services.InteractService = interactService;
                 InteractButton.SetMobile(isMobileDevice);
+                InteractButton.Hide();
             }
         }
 
