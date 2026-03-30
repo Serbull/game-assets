@@ -46,7 +46,17 @@ namespace Serbull.GameAssets.Interact
 
         public void UpdateTrigger()
         {
-            Services.InteractService.UpdateInteracts(true);
+            if (_isPlyerInside)
+            {
+                if (Interactable.CanInteract)
+                {
+                    Services.InteractService.AddInteractTrigger(this);
+                }
+                else
+                {
+                    Services.InteractService.RemoveInteractTrigger(this);
+                }
+            }
         }
     }
 }

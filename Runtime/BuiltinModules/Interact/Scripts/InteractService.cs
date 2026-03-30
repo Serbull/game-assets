@@ -21,7 +21,7 @@ namespace Serbull.GameAssets.Interact
             if (!_interactTriggers.Contains(interactTrigger))
                 _interactTriggers.Add(interactTrigger);
 
-            UpdateInteracts(false);
+            UpdateInteracts(true);
         }
 
         public void RemoveInteractTrigger(InteractTrigger interactTrigger)
@@ -29,7 +29,7 @@ namespace Serbull.GameAssets.Interact
             if (_interactTriggers.Contains(interactTrigger))
                 _interactTriggers.Remove(interactTrigger);
 
-            UpdateInteracts(false);
+            UpdateInteracts(true);
         }
 
         public void Update()
