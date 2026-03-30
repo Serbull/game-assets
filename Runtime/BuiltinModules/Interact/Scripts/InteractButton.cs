@@ -15,6 +15,9 @@ namespace Serbull.GameAssets.Interact
         [SerializeField] private GameObject _pc;
         [SerializeField] private GameObject _mobile;
 
+        [Space]
+        [SerializeField] private KeyCode _pressKey = KeyCode.E;
+
         private Action _callback;
         private Transform _targetObject;
         private Vector3 _targetOffset;
@@ -72,6 +75,7 @@ namespace Serbull.GameAssets.Interact
         private void Interact()
         {
             _callback?.Invoke();
+            Hide();
         }
 
         private void Update()
@@ -118,11 +122,11 @@ namespace Serbull.GameAssets.Interact
 
         private void CheckInput()
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(_pressKey))
             {
                 ActivatePress();
             }
-            else if (Input.GetKeyUp(KeyCode.E))
+            else if (Input.GetKeyUp(_pressKey))
             {
                 DeactivatePress();
             }

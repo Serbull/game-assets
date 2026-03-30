@@ -18,14 +18,18 @@ namespace Serbull.GameAssets.Interact
 
         public void AddInteractTrigger(InteractTrigger interactTrigger)
         {
-            _interactTriggers.Add(interactTrigger);
-            UpdateInteracts();
+            if (!_interactTriggers.Contains(interactTrigger))
+                _interactTriggers.Add(interactTrigger);
+
+            UpdateInteracts(false);
         }
 
         public void RemoveInteractTrigger(InteractTrigger interactTrigger)
         {
-            _interactTriggers.Remove(interactTrigger);
-            UpdateInteracts();
+            if (_interactTriggers.Contains(interactTrigger))
+                _interactTriggers.Remove(interactTrigger);
+
+            UpdateInteracts(false);
         }
 
         public void Update()
@@ -33,11 +37,16 @@ namespace Serbull.GameAssets.Interact
             if (_interactTriggers.Count == 0)
                 return;
 
-            UpdateInteracts();
+            UpdateInteracts(false);
         }
 
-        public void UpdateInteracts()
+        public void UpdateInteracts(bool force = false)
         {
+            if (force)
+            {
+                _activeInteractable = null;
+            }
+
             if (_interactTriggers.Count == 0)
             {
                 _activeInteractable = null;
@@ -78,7 +87,9 @@ namespace Serbull.GameAssets.Interact
             }
 
             _activeInteractable = interactTrigger.Interactable;
-            Services.UI.InteractButton.Show(_activeInteractable.GetInteractData());
+            var data = _activeInteractable.GetInteractData();
+            Services.UI.InteractButton.Show(data.TargetObject, data.TargetOffset,
+                _activeInteractable.Interact, data.Text, data.HoldTime);
         }
     }
 }

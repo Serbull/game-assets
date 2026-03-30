@@ -4,6 +4,8 @@ namespace Serbull.GameAssets.Interact
 {
     public class InteractTrigger : MonoBehaviour
     {
+        private bool _isPlyerInside;
+
         public IInteractable Interactable;
 
         private void OnDisable()
@@ -18,9 +20,13 @@ namespace Serbull.GameAssets.Interact
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player") && Interactable != null && Interactable.CanInteract)
+            if (other.CompareTag("Player"))
             {
-                Services.InteractService.AddInteractTrigger(this);
+                _isPlyerInside = true;
+                if (Interactable != null && Interactable.CanInteract)
+                {
+                    Services.InteractService.AddInteractTrigger(this);
+                }
             }
         }
 
@@ -28,6 +34,7 @@ namespace Serbull.GameAssets.Interact
         {
             if (other.CompareTag("Player"))
             {
+                _isPlyerInside = false;
                 Services.InteractService.RemoveInteractTrigger(this);
             }
         }
@@ -35,6 +42,11 @@ namespace Serbull.GameAssets.Interact
         public void SetInteractable(IInteractable interactable)
         {
             Interactable = interactable;
+        }
+
+        public void UpdateTrigger()
+        {
+            Services.InteractService.UpdateInteracts(true);
         }
     }
 }
