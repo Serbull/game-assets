@@ -87,9 +87,7 @@ namespace Serbull.GameAssets.Interact
             }
 
             _activeInteractable = interactTrigger.Interactable;
-            var data = _activeInteractable.GetInteractData();
-            Services.UI.InteractButton.Show(data.TargetObject, data.TargetOffset,
-                _activeInteractable.Interact, data.Text, data.HoldTime);
+            Services.UI.InteractButton.Show(_activeInteractable.GetInteractData());
         }
     }
 }

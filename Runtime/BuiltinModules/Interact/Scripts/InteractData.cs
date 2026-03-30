@@ -20,20 +20,4 @@ namespace Serbull.GameAssets.Interact
             HoldTime = holdTime;
         }
     }
-
-    public struct TriggerInteractData
-    {
-        public Transform TargetObject;
-        public Vector3 TargetOffset;
-        public string Text;
-        public float HoldTime;
-
-        public TriggerInteractData(Transform targetObject, Vector3 targetOffset, string text, float holdTime = 0.5f)
-        {
-            TargetObject = targetObject;
-            TargetOffset = targetOffset;
-            Text = text;
-            HoldTime = holdTime;
-        }
-    }
 }
