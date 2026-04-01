@@ -19,17 +19,19 @@ namespace Serbull.GameAssets.Interact
         public void AddInteractTrigger(InteractTrigger interactTrigger)
         {
             if (!_interactTriggers.Contains(interactTrigger))
+            {
                 _interactTriggers.Add(interactTrigger);
-
-            UpdateInteracts(true);
+                UpdateInteracts(true);
+            }
         }
 
         public void RemoveInteractTrigger(InteractTrigger interactTrigger)
         {
             if (_interactTriggers.Contains(interactTrigger))
+            {
                 _interactTriggers.Remove(interactTrigger);
-
-            UpdateInteracts(true);
+                UpdateInteracts(true);
+            }
         }
 
         public void Update()
