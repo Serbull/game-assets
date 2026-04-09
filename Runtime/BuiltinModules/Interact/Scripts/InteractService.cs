@@ -16,6 +16,11 @@ namespace Serbull.GameAssets.Interact
             _cameraTransform = cameraTransform;
         }
 
+        public bool HasInteractTrigger(InteractTrigger interactTrigger)
+        {
+            return _interactTriggers.Contains(interactTrigger);
+        }
+
         public void AddInteractTrigger(InteractTrigger interactTrigger)
         {
             if (!_interactTriggers.Contains(interactTrigger))

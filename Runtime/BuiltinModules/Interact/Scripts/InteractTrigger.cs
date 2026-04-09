@@ -50,7 +50,14 @@ namespace Serbull.GameAssets.Interact
             {
                 if (Interactable.CanInteract)
                 {
-                    Services.InteractService.AddInteractTrigger(this);
+                    if (Services.InteractService.HasInteractTrigger(this))
+                    {
+                        Services.InteractService.UpdateInteracts(true);
+                    }
+                    else
+                    {
+                        Services.InteractService.AddInteractTrigger(this);
+                    }
                 }
                 else
                 {
