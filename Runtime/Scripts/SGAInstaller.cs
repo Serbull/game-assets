@@ -86,13 +86,13 @@ namespace Serbull.GameAssets
             //Localization
             if (Services.Localization.GetType() == typeof(Localization.EmptyService))
             {
+                var emptyService = Services.Localization as Localization.EmptyService;
                 var localizationManager = new Localization.LocalizationManager(LocalizationConfig, language);
                 Services.Localization = localizationManager;
 
-                var localizations = (Services.Localization as Localization.EmptyService).Localizations;
-                if (localizations.Count > 0)
+                if (emptyService.Localizations.Count > 0)
                 {
-                    localizationManager.AddLocalization(localizations.ToArray());
+                    localizationManager.AddLocalization(emptyService.Localizations.ToArray());
                 }
 
                 EventBus.Publish(new Localization.UpdateLocalizationEvent());
