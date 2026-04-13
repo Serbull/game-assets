@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace Serbull.GameAssets
@@ -83,10 +84,17 @@ namespace Serbull.GameAssets
             }
 
             //Localization
-            if (Services.Localization == null)
+            if (Services.Localization.GetType() == typeof(Localization.EmptyService))
             {
                 var localizationManager = new Localization.LocalizationManager(LocalizationConfig, language);
                 Services.Localization = localizationManager;
+
+                var localizations = (Services.Localization as Localization.EmptyService).Localizations;
+                if (localizations.Count > 0)
+                {
+                    localizationManager.AddLocalization(localizations.ToArray());
+                }
+
                 EventBus.Publish(new Localization.UpdateLocalizationEvent());
             }
 
