@@ -18,7 +18,7 @@ namespace Serbull.GameAssets.Rarity
 
         public LocalizationData[] Localizations;
 
-        public RarityData GetRareData(string id)
+        public RarityData GetRarityData(string id)
         {
             foreach (var data in Rarities)
             {

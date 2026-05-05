@@ -37,7 +37,7 @@ namespace Serbull.GameAssets.PlaytimeGift
         {
             ClaimedList.Add(id);
             var data = _giftConfig.GetReward(id);
-            var color = Services.Rarity.Config.GetRareData(data.Color).Color;
+            var color = Services.Rarity.Config.GetRarityData(data.Color).Color;
             var item = new RewardPreviewItem("", "", data.Icon, data.Count, true, Color.white, Color.white, color);
             _resourceGiver.AddResource(data.Resource, data.Count);
             Services.UI.RewardPreviewPopup.Show(item);
