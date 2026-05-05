@@ -34,7 +34,7 @@ namespace Serbull.GameAssets.PlaytimeGift
             _icon.sprite = giftData.Icon;
             _countTxt.text = "x" + giftData.Count.ToShortValue();
             _doneMark.SetActive(isDone);
-            var bgColor = Services.Rarity.Config.GetRarityData(giftData.Color).Color;
+            var bgColor = Services.Rarity.GetRarityData(giftData.Color).Color;
             GetComponent<Image>().color = bgColor;
             UpdateTakeButton();
             StartCoroutine(Timer());

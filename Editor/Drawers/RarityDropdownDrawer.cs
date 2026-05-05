@@ -2,13 +2,14 @@ using System;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using Serbull.GameAssets.Rarity;
 
 namespace Serbull.GameAssets.Editor
 {
-    [CustomPropertyDrawer(typeof(Rarity.RarityDropdownAttribute))]
+    [CustomPropertyDrawer(typeof(RarityDropdownAttribute))]
     public class RarityDropdownDrawer : PropertyDrawer
     {
-        private Rarity.RarityConfig.RarityData[] _rares;
+        private RarityData[] _rares;
         private string[] _rareHeaders;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
