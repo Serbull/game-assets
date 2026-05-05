@@ -1,6 +1,6 @@
 namespace Serbull.GameAssets
 {
-    public class UIManager : IUIService
+    public class UIManager
     {
         public readonly RewardPreviewPopup RewardPreviewPopup;
         public readonly Notification Notification;
