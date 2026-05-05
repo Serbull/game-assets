@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace Serbull.GameAssets.Editor
 {
-    [CustomPropertyDrawer(typeof(Rare.RareDropdownAttribute))]
-    public class RareDropdownDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(Rarity.RarityDropdownAttribute))]
+    public class RarityDropdownDrawer : PropertyDrawer
     {
-        private Rare.RareConfig.RareData[] _rares;
+        private Rarity.RarityConfig.RarityData[] _rares;
         private string[] _rareHeaders;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -58,11 +58,11 @@ namespace Serbull.GameAssets.Editor
 
         private void CacheRares()
         {
-            var config = ConfigProvider.LoadConfig<Rare.RareConfig>(ConfigProvider.ConfigType.Rare);
-            if (config != null && config.Rares != null)
+            var config = ConfigProvider.LoadConfig<Rarity.RarityConfig>(ConfigProvider.ConfigType.Rarity);
+            if (config != null && config.Rarities != null)
             {
-                _rareHeaders = config.Rares.Select((i) => i.Id).ToArray();
-                _rares = config.Rares;
+                _rareHeaders = config.Rarities.Select((i) => i.Id).ToArray();
+                _rares = config.Rarities;
             }
         }
     }

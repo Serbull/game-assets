@@ -13,7 +13,7 @@ namespace Serbull.GameAssets
         [SerializeField] private bool _useInteract;
         [Header("Configs")]
         [ReadOnly] public Localization.LocalizationConfig LocalizationConfig;
-        [ReadOnly] public Rare.RareConfig RareConfig;
+        [ReadOnly, SerializeField] private Rarity.RarityConfig _rarityConfig;
         [ShowIf(nameof(_useAudio)), ReadOnly] public Audio.AudioConfig AudioConfig;
         [ShowIf(nameof(_usePlaytimeGift)), ReadOnly] public PlaytimeGift.GiftConfig PlaytimeGiftConfig;
         [ShowIf(nameof(_useRoulette)), ReadOnly] public Roulette.RouletteConfig RouletteConfig;
@@ -48,9 +48,9 @@ namespace Serbull.GameAssets
                 LocalizationConfig = ConfigProvider.LoadConfig<Localization.LocalizationConfig>(ConfigProvider.ConfigType.Localization);
             }
 
-            if (RareConfig == null)
+            if (_rarityConfig == null)
             {
-                RareConfig = ConfigProvider.LoadConfig<Rare.RareConfig>(ConfigProvider.ConfigType.Rare);
+                _rarityConfig = ConfigProvider.LoadConfig<Rarity.RarityConfig>(ConfigProvider.ConfigType.Rarity);
             }
 
             if (_useAudio && AudioConfig == null)
@@ -72,17 +72,6 @@ namespace Serbull.GameAssets
 
         public void Init(IResourceGiver resourceGiver, Roulette.RouletteData rouletteData, bool isMobileDevice, string language = "en")
         {
-            //UI
-            var uiService = new UIManager(RewardPreviewPopup, Notification, PlaytimeGiftPopup, RoulettePopup, InteractButton);
-            Services.UI = uiService;
-
-            //Rare
-            if (Services.Rare == null)
-            {
-                var rareManager = new Rare.RareManager(RareConfig);
-                Services.Rare = rareManager;
-            }
-
             //Localization
             if (Services.Localization.GetType() == typeof(Localization.EmptyService))
             {
@@ -96,6 +85,19 @@ namespace Serbull.GameAssets
                 }
 
                 EventBus.Publish(new Localization.UpdateLocalizationEvent());
+            }
+
+            //UI
+            var uiService = new UIManager(RewardPreviewPopup, Notification, PlaytimeGiftPopup, RoulettePopup, InteractButton);
+            Services.UI = uiService;
+
+            //Rare
+            if (Services.Rarity == null)
+            {
+                var rarityService = new Rarity.RarityService(_rarityConfig);
+                Services.Rarity = rarityService;
+                //Add localizations
+                Services.Localization.AddLocalization(_rarityConfig.Localizations);
             }
 
             //Audio

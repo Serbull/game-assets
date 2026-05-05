@@ -3,7 +3,7 @@ namespace Serbull.GameAssets
     public static class Services
     {
         public static UIManager UI;
-        public static IRareService Rare;
+        public static Rarity.RarityService Rarity;
         public static ILocalizationService Localization = new Localization.EmptyService();
         public static IAudioService Audio;
         public static IPlaytimeGiftService PlaytimeGift;

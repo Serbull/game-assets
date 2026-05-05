@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d3472a46021e463e9055a89df9d335e, type: 3}
+  m_Name: RarityConfig
+  m_EditorClassIdentifier: 
+  Rarities:
+  - Id: common
+    LocalizationId: r_common
+    Color: {r: 0.6, g: 0.6, b: 0.6, a: 1}
+  - Id: uncommon
+    LocalizationId: r_uncommon
+    Color: {r: 0.23137255, g: 1, b: 0.44313726, a: 1}
+  - Id: rare
+    LocalizationId: r_rare
+    Color: {r: 0.21176471, g: 0.69803923, b: 1, a: 1}
+  - Id: epic
+    LocalizationId: r_epic
+    Color: {r: 0.77254903, g: 0.23921569, b: 1, a: 1}
+  - Id: legendary
+    LocalizationId: r_legendary
+    Color: {r: 1, g: 0.49019608, b: 0.09019608, a: 1}
+  - Id: mystical
+    LocalizationId: r_mystical
+    Color: {r: 1, g: 0.007843138, b: 0, a: 1}
+  - Id: secret
+    LocalizationId: r_secret
+    Color: {r: 1, g: 0, b: 0.7882353, a: 1}
+  Localizations:
+  - Id: r_common
+    En: Common
+    Ru: "\u041E\u0431\u044B\u0447\u043D\u044B\u0439"
+  - Id: r_uncommon
+    En: Uncommon
+    Ru: "\u041D\u0435\u043E\u0431\u044B\u0447\u043D\u044B\u0439"
+  - Id: r_rare
+    En: Rare
+    Ru: "\u0420\u0435\u0434\u043A\u0438\u0439"
+  - Id: r_epic
+    En: Epic
+    Ru: "\u042D\u043F\u0438\u0447\u0435\u0441\u043A\u0438\u0439"
+  - Id: r_legendary
+    En: Legendary
+    Ru: "\u041B\u0435\u0433\u0435\u043D\u0434\u0430\u0440\u043D\u044B\u0439"
+  - Id: r_mystical
+    En: Mystical
+    Ru: "\u041C\u0438\u0441\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439"
+  - Id: r_secret
+    En: Secret
+    Ru: "\u0421\u0435\u043A\u0440\u0435\u0442\u043D\u044B\u0439"

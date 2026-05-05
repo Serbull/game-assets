@@ -11,7 +11,7 @@ namespace Serbull.GameAssets
         public enum ConfigType
         {
             Localization,
-            Rare,
+            Rarity,
             Audio,
             PlaytimeGift,
             Roulette,
