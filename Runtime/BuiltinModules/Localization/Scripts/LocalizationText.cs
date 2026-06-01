@@ -3,17 +3,17 @@ using UnityEngine;
 
 namespace Serbull.GameAssets.Localization
 {
-    [RequireComponent(typeof(TextMeshProUGUI))]
+    [RequireComponent(typeof(TMP_Text))]
     public class LocalizationText : MonoBehaviour
     {
         [SerializeField] private string _id;
 
-        private TextMeshProUGUI _text;
+        private TMP_Text _text;
         private string[] _args = new string[0];
 
         private void Awake()
         {
-            _text = GetComponent<TextMeshProUGUI>();
+            _text = GetComponent<TMP_Text>();
         }
 
         private void OnEnable()

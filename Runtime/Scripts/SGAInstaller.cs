@@ -12,7 +12,7 @@ namespace Serbull.GameAssets
         [SerializeField] private bool _useRoulette;
         [SerializeField] private bool _useInteract;
         [Header("Configs")]
-        [ReadOnly] public Localization.LocalizationConfig LocalizationConfig;
+        [ReadOnly, SerializeField] private Localization.LocalizationConfig _localizationConfig;
         [ReadOnly, SerializeField] private Rarity.RarityConfig _rarityConfig;
         [ShowIf(nameof(_useAudio)), ReadOnly] public Audio.AudioConfig AudioConfig;
         [ShowIf(nameof(_usePlaytimeGift)), ReadOnly] public PlaytimeGift.GiftConfig PlaytimeGiftConfig;
@@ -43,9 +43,9 @@ namespace Serbull.GameAssets
                 return;
             }
 
-            if (LocalizationConfig == null)
+            if (_localizationConfig == null)
             {
-                LocalizationConfig = ConfigProvider.LoadConfig<Localization.LocalizationConfig>(ConfigProvider.ConfigType.Localization);
+                _localizationConfig = ConfigProvider.LoadConfig<Localization.LocalizationConfig>(ConfigProvider.ConfigType.Localization);
             }
 
             if (_rarityConfig == null)
@@ -76,7 +76,7 @@ namespace Serbull.GameAssets
             if (Services.Localization.GetType() == typeof(Localization.EmptyService))
             {
                 var emptyService = Services.Localization as Localization.EmptyService;
-                var localizationManager = new Localization.LocalizationManager(LocalizationConfig, language);
+                var localizationManager = new Localization.LocalizationManager(_localizationConfig, language);
                 Services.Localization = localizationManager;
 
                 if (emptyService.Localizations.Count > 0)
