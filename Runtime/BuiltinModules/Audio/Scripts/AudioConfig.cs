@@ -21,7 +21,7 @@ namespace Serbull.GameAssets.Audio
             public string Id;
             public AudioClip[] Clips;
             [Range(0f, 1f)] public float Volume = 1f;
-            [Header("Pitch")]
+            [Header("Pitch Effect")]
             public bool UsePitchEffect;
             public float PitchStep = 0.2f;
         }

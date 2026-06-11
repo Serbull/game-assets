@@ -107,6 +107,11 @@ namespace Serbull.GameAssets.Audio
 
         public void PlaySound(string soundName)
         {
+            PlaySound(soundName, 0, 0);
+        }
+
+        public void PlaySound(string soundName, float overrideVolume, float overridePitch)
+        {
             var sound = _audioConfig.Sounds.FirstOrDefault((sound) => sound.Id == soundName);
 
             if (sound == null)
@@ -123,7 +128,9 @@ namespace Serbull.GameAssets.Audio
             }
             else
             {
-                PlaySound(clip, sound.Volume);
+                var volume = overrideVolume > 0 ? overrideVolume : sound.Volume;
+                var pitch = overridePitch > 0 ? overridePitch : 1;
+                PlaySound(clip, volume, pitch);
             }
         }
 
@@ -141,8 +148,9 @@ namespace Serbull.GameAssets.Audio
             musicData.AudioSource.Play();
         }
 
-        private void PlaySound(AudioClip clip, float volume)
+        private void PlaySound(AudioClip clip, float volume, float pitch)
         {
+            _soundSource.pitch = pitch;
             _soundSource.PlayOneShot(clip, volume);
         }
 
