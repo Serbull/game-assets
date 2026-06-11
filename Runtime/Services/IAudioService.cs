@@ -10,5 +10,7 @@ namespace Serbull.GameAssets
         void StopMusic(string musicName);
 
         void PlaySound(string soundName);
+        void PlaySound(string soundName, float ovveridePitch);
+        void PlaySound(string soundName, float ovveridePitch, float overrideVolume);
     }
 }

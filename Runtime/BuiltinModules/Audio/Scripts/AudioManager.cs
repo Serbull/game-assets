@@ -110,6 +110,11 @@ namespace Serbull.GameAssets.Audio
             PlaySound(soundName, 0, 0);
         }
 
+        public void PlaySound(string soundName, float ovveridePitch)
+        {
+            PlaySound(soundName, 0, ovveridePitch);
+        }
+
         public void PlaySound(string soundName, float overrideVolume, float overridePitch)
         {
             var sound = _audioConfig.Sounds.FirstOrDefault((sound) => sound.Id == soundName);
