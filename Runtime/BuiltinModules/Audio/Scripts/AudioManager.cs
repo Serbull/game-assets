@@ -22,9 +22,10 @@ namespace Serbull.GameAssets.Audio
 
         private readonly List<MusicData> _musicDatas = new();
         private readonly Dictionary<string, PitchParam> _soundPitches = new();
+        private readonly List<AudioSource> _soundSources = new();
 
         private AudioConfig _audioConfig;
-        private AudioSource _soundSource;
+        private Transform _soundsRoot;
 
         public void Init(AudioConfig audioConfig)
         {
@@ -32,7 +33,8 @@ namespace Serbull.GameAssets.Audio
 
             foreach (var music in audioConfig.Musics)
             {
-                var source = new GameObject($"Music ({music.Id})").AddComponent<AudioSource>();
+                var source = new GameObject($"Music ({music.Id})")
+                    .AddComponent<AudioSource>();
                 source.transform.SetParent(transform);
                 source.outputAudioMixerGroup = audioConfig.MusicMixerGroup;
                 source.playOnAwake = false;
@@ -46,10 +48,27 @@ namespace Serbull.GameAssets.Audio
                 }
             }
 
-            _soundSource = new GameObject("Sounds").AddComponent<AudioSource>();
-            _soundSource.transform.SetParent(transform);
-            _soundSource.outputAudioMixerGroup = audioConfig.SoundMixerGroup;
-            _soundSource.playOnAwake = false;
+            _soundsRoot = new GameObject("Sounds").transform;
+            _soundsRoot.SetParent(transform);
+        }
+
+        private AudioSource GetFreeSoundSource()
+        {
+            foreach (var source in _soundSources)
+            {
+                if (!source.isPlaying)
+                {
+                    return source;
+                }
+            }
+
+            var newSource = new GameObject($"Sound ({_soundSources.Count})")
+                .AddComponent<AudioSource>();
+            newSource.transform.SetParent(_soundsRoot);
+            newSource.outputAudioMixerGroup = _audioConfig.SoundMixerGroup;
+            newSource.playOnAwake = false;
+            _soundSources.Add(newSource);
+            return newSource;
         }
 
         private void Update()
@@ -155,8 +174,9 @@ namespace Serbull.GameAssets.Audio
 
         private void PlaySound(AudioClip clip, float volume, float pitch)
         {
-            _soundSource.pitch = pitch;
-            _soundSource.PlayOneShot(clip, volume);
+            var source = GetFreeSoundSource();
+            source.pitch = pitch;
+            source.PlayOneShot(clip, volume);
         }
 
         private void PlaySound(AudioClip clip, float volume, string pitchId, float pitchStep)
@@ -175,8 +195,9 @@ namespace Serbull.GameAssets.Audio
             pitchParam.PlayTimes++;
 
             var pitch = 1f - pitchStep + pitchParam.PlayTimes * pitchStep;
-            _soundSource.pitch = pitch;
-            _soundSource.PlayOneShot(clip, volume);
+            var source = GetFreeSoundSource();
+            source.pitch = pitch;
+            source.PlayOneShot(clip, volume);
         }
     }
 }
