@@ -16,6 +16,12 @@ namespace Serbull.GameAssets.Roulette
         private void OnEnable()
         {
             EventBus.Subscribe<ChangeLuckySpinEvent>(OnLuckySpinChanged);
+
+            if (Services.Roulette != null)
+            {
+                ChangeLuckySpinEvent spinEvent = new(Services.Roulette.SaveData.SpinCount);
+                OnLuckySpinChanged(spinEvent);
+            }
         }
 
         private void OnDisable()
