@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -141,3 +142,4 @@ namespace Serbull.GameAssets.Editor
         }
     }
 }
+#endif
