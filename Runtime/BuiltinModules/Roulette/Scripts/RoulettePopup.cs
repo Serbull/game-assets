@@ -135,7 +135,7 @@ namespace Serbull.GameAssets.Roulette
                 .OnComplete(() =>
                 {
                     _isSpinning = false;
-                    Services.Roulette.AddReward(reward);
+                    Services.Roulette.AddRewardWithPreview(reward);
                 });
         }
 
