@@ -1,8 +1,10 @@
 
 namespace Serbull.GameAssets
 {
-    public interface IResourceGiver
+    public interface IResourceService
     {
         public void AddResource(string resource, int count);
+
+        public void SpendResource(string resource, int count);
     }
 }

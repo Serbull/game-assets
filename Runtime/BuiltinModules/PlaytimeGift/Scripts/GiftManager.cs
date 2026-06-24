@@ -6,16 +6,16 @@ namespace Serbull.GameAssets.PlaytimeGift
     public class GiftManager : IPlaytimeGiftService
     {
         private readonly GiftConfig _giftConfig;
-        private readonly IResourceGiver _resourceGiver;
+        private readonly IResourceService _resourceService;
 
         public static readonly List<int> ClaimedList = new();
 
         public GiftConfig Config => _giftConfig;
 
-        public GiftManager(GiftConfig giftConfig, IResourceGiver resourceGiver)
+        public GiftManager(GiftConfig giftConfig, IResourceService resourceService)
         {
             _giftConfig = giftConfig;
-            _resourceGiver = resourceGiver;
+            _resourceService = resourceService;
         }
 
         public int GetNearestGiftId()
@@ -39,7 +39,7 @@ namespace Serbull.GameAssets.PlaytimeGift
             var data = _giftConfig.GetReward(id);
             var color = Services.Rarity.GetRarityData(data.Color).Color;
             var item = new RewardPreviewItem("", "", data.Icon, data.Count, true, Color.white, Color.white, color);
-            _resourceGiver.AddResource(data.Resource, data.Count);
+            _resourceService.AddResource(data.Resource, data.Count);
             Services.UI.RewardPreviewPopup.Show(item);
         }
     }

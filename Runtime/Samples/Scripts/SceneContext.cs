@@ -9,7 +9,7 @@ namespace Serbull.GameAssets.Samples
         private void Awake()
         {
             var saveData = new SaveData();
-            var resourceGiver = new ResourceGiver();
+            var resourceGiver = new ResourceService();
             var purchaseService = new PurchaseService();
 
             _sgaInstaller.Init(resourceGiver, purchaseService, saveData.RouletteData, false, "en");

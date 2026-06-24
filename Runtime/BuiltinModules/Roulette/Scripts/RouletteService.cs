@@ -9,13 +9,13 @@ namespace Serbull.GameAssets.Roulette
         private static float _freeSpinTimer = -1;
 
         private readonly RouletteConfig _config;
-        private readonly IResourceGiver _resourceGiver;
+        private readonly IResourceService _resourceService;
         private readonly RouletteData _rouletteData;
 
-        public RouletteService(RouletteConfig config, IResourceGiver resourceGiver, RouletteData rouletteData)
+        public RouletteService(RouletteConfig config, IResourceService resourceService, RouletteData rouletteData)
         {
             _config = config;
-            _resourceGiver = resourceGiver;
+            _resourceService = resourceService;
             _rouletteData = rouletteData;
 
             if (_freeSpinTimer == -1)
@@ -65,7 +65,7 @@ namespace Serbull.GameAssets.Roulette
 
         public void AddRewardWithPreview(RouletteConfig.RewardData reward)
         {
-            _resourceGiver.AddResource(reward.Resource, reward.Count);
+            _resourceService.AddResource(reward.Resource, reward.Count);
             var item = new RewardPreviewItem("", "", reward.Icon, reward.Count, true, Color.white, Color.white, Color.white);
             Services.UI.RewardPreviewPopup.Show(item);
         }

@@ -70,10 +70,10 @@ namespace Serbull.GameAssets
         }
 #endif
 
-        public void Init(IResourceGiver resourceGiver, IPurchaseService purchaseService, Roulette.RouletteData rouletteData, bool isMobileDevice, string language = "en")
+        public void Init(IResourceService resourceService, IPurchaseService purchaseService, Roulette.RouletteData rouletteData, bool isMobileDevice, string language = "en")
         {
             //Purchase
-            Services.ResourceGiver = resourceGiver;
+            Services.Resource = resourceService;
             Services.Purchase = purchaseService;
 
             //Localization
@@ -115,14 +115,14 @@ namespace Serbull.GameAssets
             //Playtime Gift
             if (_usePlaytimeGift)
             {
-                var playtimeGiftManager = new PlaytimeGift.GiftManager(PlaytimeGiftConfig, resourceGiver);
+                var playtimeGiftManager = new PlaytimeGift.GiftManager(PlaytimeGiftConfig, resourceService);
                 Services.PlaytimeGift = playtimeGiftManager;
             }
 
             //Roulette
             if (_useRoulette)
             {
-                var rouletteManager = new Roulette.RouletteService(RouletteConfig, resourceGiver, rouletteData);
+                var rouletteManager = new Roulette.RouletteService(RouletteConfig, resourceService, rouletteData);
                 Services.Roulette = rouletteManager;
             }
 
