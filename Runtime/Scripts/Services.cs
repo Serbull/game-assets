@@ -12,7 +12,7 @@ namespace Serbull.GameAssets
         public static Interact.InteractService InteractService;
 
         //external
-        public static IResourceService Resource;
+        public static IResourceGiver ResourceGiver;
         public static IPurchaseService Purchase;
     }
 }
