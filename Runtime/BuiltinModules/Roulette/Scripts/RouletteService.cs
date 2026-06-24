@@ -30,13 +30,6 @@ namespace Serbull.GameAssets.Roulette
 
         public RouletteData SaveData => _rouletteData;
 
-        public void AddReward(RouletteConfig.RewardData reward)
-        {
-            var item = new RewardPreviewItem("", "", reward.Icon, reward.Count, true, Color.white, Color.white, Color.white);
-            _resourceGiver.AddResource(reward.Resource, reward.Count);
-            Services.UI.RewardPreviewPopup.Show(item);
-        }
-
         public void Tick()
         {
             if (_config.AddFreeSpins)
@@ -60,6 +53,21 @@ namespace Serbull.GameAssets.Roulette
         {
             _rouletteData.SpinCount -= amount;
             OnSpinCountChanged?.Invoke(_rouletteData.SpinCount);
+        }
+
+        public void AddSpinWithPreview(int amount)
+        {
+            AddSpin(amount);
+            var icon = Services.Roulette.Config.InAppSprite;
+            var luckySpinReward = new RewardPreviewItem("", "", icon, amount, true, Color.white, Color.white, Color.white);
+            Services.UI.RewardPreviewPopup.Show(luckySpinReward);
+        }
+
+        public void AddRewardWithPreview(RouletteConfig.RewardData reward)
+        {
+            _resourceGiver.AddResource(reward.Resource, reward.Count);
+            var item = new RewardPreviewItem("", "", reward.Icon, reward.Count, true, Color.white, Color.white, Color.white);
+            Services.UI.RewardPreviewPopup.Show(item);
         }
     }
 }
