@@ -15,23 +15,24 @@ namespace Serbull.GameAssets.Roulette
 
         private void OnEnable()
         {
-            EventBus.Subscribe<ChangeLuckySpinEvent>(OnLuckySpinChanged);
-
             if (Services.Roulette != null)
             {
-                ChangeLuckySpinEvent spinEvent = new(Services.Roulette.SaveData.SpinCount);
-                OnLuckySpinChanged(spinEvent);
+                Services.Roulette.OnSpinCountChanged += OnSpinCountChanged;
+                OnSpinCountChanged(Services.Roulette.SaveData.SpinCount);
             }
         }
 
         private void OnDisable()
         {
-            EventBus.Unsubscribe<ChangeLuckySpinEvent>(OnLuckySpinChanged);
+            if (Services.Roulette != null)
+            {
+                Services.Roulette.OnSpinCountChanged -= OnSpinCountChanged;
+            }
         }
 
-        private void OnLuckySpinChanged(ChangeLuckySpinEvent e)
+        private void OnSpinCountChanged(int amount)
         {
-            _ntf.SetActive(e.Amount > 0);
+            _ntf.SetActive(amount > 0);
         }
 
         private void Button_OnClick()

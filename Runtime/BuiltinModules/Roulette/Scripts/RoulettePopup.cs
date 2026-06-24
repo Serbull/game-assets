@@ -55,14 +55,30 @@ namespace Serbull.GameAssets.Roulette
 
             _freeSpinText.gameObject.SetActive(_config.AddFreeSpins);
 
-            EventBus.Subscribe<ChangeLuckySpinEvent>(OnChangeLuckySpinEvent);
+            if (Services.Roulette != null)
+            {
+                Services.Roulette.OnSpinCountChanged += OnSpinCountChanged;
+            }
+
+            if (Services.Purchase != null)
+            {
+                Services.Purchase.OnAnyRewardGranted += UpdateUI;
+            }
 
             UpdateUI();
         }
 
         private void OnDisable()
         {
-            EventBus.Unsubscribe<ChangeLuckySpinEvent>(OnChangeLuckySpinEvent);
+            if (Services.Roulette != null)
+            {
+                Services.Roulette.OnSpinCountChanged -= OnSpinCountChanged;
+            }
+
+            if (Services.Purchase != null)
+            {
+                Services.Purchase.OnAnyRewardGranted -= UpdateUI;
+            }
         }
 
         private void Update()
@@ -100,7 +116,8 @@ namespace Serbull.GameAssets.Roulette
             _wheelTransform
                 .DORotate(new Vector3(0, 0, -targetAngle), _spinDuration, RotateMode.FastBeyond360)
                 .SetEase(Ease.OutCubic)
-                .OnUpdate(() => {
+                .OnUpdate(() =>
+                {
                     var angle = _wheelTransform.eulerAngles.z;
                     var arrowPoint = (int)(angle % 360 / anglePerSlot);
 
@@ -122,7 +139,7 @@ namespace Serbull.GameAssets.Roulette
                 });
         }
 
-        private void OnChangeLuckySpinEvent(ChangeLuckySpinEvent e)
+        private void OnSpinCountChanged(int amount)
         {
             UpdateUI();
         }

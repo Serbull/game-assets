@@ -1,26 +1,18 @@
+using System;
 using UnityEngine;
 
 namespace Serbull.GameAssets.Roulette
 {
-    public struct ChangeLuckySpinEvent
+    public class RouletteService
     {
-        public long Amount;
-
-        public ChangeLuckySpinEvent(long amount)
-        {
-            Amount = amount;
-        }
-    }
-
-    public class RouletteManager : IRouletteService
-    {
+        public event Action<int> OnSpinCountChanged;
         private static float _freeSpinTimer = -1;
 
         private readonly RouletteConfig _config;
         private readonly IResourceGiver _resourceGiver;
         private readonly RouletteData _rouletteData;
 
-        public RouletteManager(RouletteConfig config, IResourceGiver resourceGiver, RouletteData rouletteData)
+        public RouletteService(RouletteConfig config, IResourceGiver resourceGiver, RouletteData rouletteData)
         {
             _config = config;
             _resourceGiver = resourceGiver;
@@ -30,8 +22,6 @@ namespace Serbull.GameAssets.Roulette
             {
                 _freeSpinTimer = _config.FreeSpinTimer;
             }
-
-            EventBus.Publish(new ChangeLuckySpinEvent(rouletteData.SpinCount));
         }
 
         public RouletteConfig Config => _config;
@@ -47,7 +37,7 @@ namespace Serbull.GameAssets.Roulette
             Services.UI.RewardPreviewPopup.Show(item);
         }
 
-        public void Update()
+        public void Tick()
         {
             if (_config.AddFreeSpins)
             {
@@ -63,13 +53,13 @@ namespace Serbull.GameAssets.Roulette
         public void AddSpin(int amount)
         {
             _rouletteData.SpinCount += amount;
-            EventBus.Publish(new ChangeLuckySpinEvent(_rouletteData.SpinCount));
+            OnSpinCountChanged?.Invoke(_rouletteData.SpinCount);
         }
 
         public void SpendSpin(int amount)
         {
             _rouletteData.SpinCount -= amount;
-            EventBus.Publish(new ChangeLuckySpinEvent(_rouletteData.SpinCount));
+            OnSpinCountChanged?.Invoke(_rouletteData.SpinCount);
         }
     }
 }
