@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Serbull.GameAssets.PlaytimeGift
+namespace Serbull.GameAssets.PlaytimeReward
 {
     public class GiftManager : IPlaytimeGiftService
     {

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Serbull.GameAssets.Rarity;
 
-namespace Serbull.GameAssets.PlaytimeGift
+namespace Serbull.GameAssets.PlaytimeReward
 {
     public class GiftConfig : ScriptableObject
     {

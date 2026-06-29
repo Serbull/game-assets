@@ -6,6 +6,7 @@ namespace Serbull.GameAssets.Samples
     public class SaveData
     {
         public int Money = 1000;
-        public Roulette.RouletteData RouletteData = new();
+        public Roulette.RouletteData Roulette = new();
+        public DailyReward.SaveData DailyReward = new();
     }
 }

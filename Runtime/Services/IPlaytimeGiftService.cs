@@ -4,6 +4,6 @@ namespace Serbull.GameAssets
     {
         int GetNearestGiftId();
         void ClaimReward(int id);
-        PlaytimeGift.GiftConfig Config { get; }
+        PlaytimeReward.GiftConfig Config { get; }
     }
 }

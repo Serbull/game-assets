@@ -9,6 +9,7 @@ namespace Serbull.GameAssets
         public static ILocalizationService Localization = new Localization.EmptyService();
         public static IAudioService Audio;
         public static IPlaytimeGiftService PlaytimeGift;
+        public static DailyRewardService DailyRewardService;
         public static Interact.InteractService InteractService;
 
         //external

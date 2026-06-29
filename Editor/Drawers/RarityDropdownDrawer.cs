@@ -14,6 +14,11 @@ namespace Serbull.GameAssets.Editor
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            if (!ShowIfEvaluator.ShouldShow(property, fieldInfo))
+            {
+                return;
+            }
+
             if (_rares == null)
             {
                 CacheRares();
@@ -55,6 +60,13 @@ namespace Serbull.GameAssets.Editor
             EditorGUI.showMixedValue = false;
 
             EditorGUI.EndProperty();
+        }
+
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            return ShowIfEvaluator.ShouldShow(property, fieldInfo)
+                ? base.GetPropertyHeight(property, label)
+                : 0;
         }
 
         private void CacheRares()

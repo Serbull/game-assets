@@ -8,18 +8,21 @@ namespace Serbull.GameAssets
     {
         [Header("Settings")]
         [SerializeField] private bool _useAudio;
-        [SerializeField] private bool _usePlaytimeGift;
+        [SerializeField] private bool _usePlaytimeReward;
+        [SerializeField] private bool _useDailyReward;
         [SerializeField] private bool _useRoulette;
         [SerializeField] private bool _useInteract;
         [Header("Configs")]
         [ReadOnly, SerializeField] private Localization.LocalizationConfig _localizationConfig;
         [ReadOnly, SerializeField] private Rarity.RarityConfig _rarityConfig;
         [ShowIf(nameof(_useAudio)), ReadOnly] public Audio.AudioConfig AudioConfig;
-        [ShowIf(nameof(_usePlaytimeGift)), ReadOnly] public PlaytimeGift.GiftConfig PlaytimeGiftConfig;
+        [ShowIf(nameof(_usePlaytimeReward)), ReadOnly] public PlaytimeReward.GiftConfig PlaytimeGiftConfig;
+        [ShowIf(nameof(_useDailyReward)), ReadOnly] public DailyReward.RewardConfig DailyRewardConfig;
         [ShowIf(nameof(_useRoulette)), ReadOnly] public Roulette.RouletteConfig RouletteConfig;
 
         [Header("UI")]
-        [ShowIf(nameof(_usePlaytimeGift))] public PlaytimeGift.GiftPopup PlaytimeGiftPopup;
+        [ShowIf(nameof(_usePlaytimeReward))] public PlaytimeReward.GiftPopup PlaytimeRewardPopup;
+        [ShowIf(nameof(_useDailyReward))] public DailyReward.RewardPopup DailyRewardPopup;
         [ShowIf(nameof(_useRoulette))] public Roulette.RoulettePopup RoulettePopup;
         public RewardPreviewPopup RewardPreviewPopup;
         public Notification Notification;
@@ -58,9 +61,14 @@ namespace Serbull.GameAssets
                 AudioConfig = ConfigProvider.LoadConfig<Audio.AudioConfig>(ConfigProvider.ConfigType.Audio);
             }
 
-            if (_usePlaytimeGift && PlaytimeGiftConfig == null)
+            if (_usePlaytimeReward && PlaytimeGiftConfig == null)
             {
-                PlaytimeGiftConfig = ConfigProvider.LoadConfig<PlaytimeGift.GiftConfig>(ConfigProvider.ConfigType.PlaytimeGift);
+                PlaytimeGiftConfig = ConfigProvider.LoadConfig<PlaytimeReward.GiftConfig>(ConfigProvider.ConfigType.PlaytimeReward);
+            }
+
+            if (_useDailyReward && DailyRewardConfig == null)
+            {
+                DailyRewardConfig = ConfigProvider.LoadConfig<DailyReward.RewardConfig>(ConfigProvider.ConfigType.DailyReward);
             }
 
             if (_useRoulette && RouletteConfig == null)
@@ -70,7 +78,7 @@ namespace Serbull.GameAssets
         }
 #endif
 
-        public void Init(IResourceGiver resourceGiver, IPurchaseService purchaseService, Roulette.RouletteData rouletteData, bool isMobileDevice, string language = "en")
+        public void Init(IResourceGiver resourceGiver, IPurchaseService purchaseService, Roulette.RouletteData rouletteData, DailyReward.SaveData dailyRewardSaveData, bool isMobileDevice, string language = "en")
         {
             //Purchase
             Services.ResourceGiver = resourceGiver;
@@ -92,7 +100,7 @@ namespace Serbull.GameAssets
             }
 
             //UI
-            var uiService = new UIManager(RewardPreviewPopup, Notification, PlaytimeGiftPopup, RoulettePopup, InteractButton);
+            var uiService = new UIManager(RewardPreviewPopup, Notification, PlaytimeRewardPopup, DailyRewardPopup, RoulettePopup, InteractButton);
             Services.UI = uiService;
 
             //Rare
@@ -112,11 +120,18 @@ namespace Serbull.GameAssets
                 Services.Audio = audioManager;
             }
 
-            //Playtime Gift
-            if (_usePlaytimeGift)
+            //Playtime Reward
+            if (_usePlaytimeReward)
             {
-                var playtimeGiftManager = new PlaytimeGift.GiftManager(PlaytimeGiftConfig, resourceGiver);
+                var playtimeGiftManager = new PlaytimeReward.GiftManager(PlaytimeGiftConfig, resourceGiver);
                 Services.PlaytimeGift = playtimeGiftManager;
+            }
+
+            //Daily Reward
+            if (_useDailyReward)
+            {
+                var dailyRewardService = new DailyRewardService(DailyRewardConfig, dailyRewardSaveData);
+                Services.DailyRewardService = dailyRewardService;
             }
 
             //Roulette

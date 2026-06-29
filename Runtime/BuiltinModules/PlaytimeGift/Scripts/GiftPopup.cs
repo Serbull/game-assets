@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Serbull.GameAssets.PlaytimeGift
+namespace Serbull.GameAssets.PlaytimeReward
 {
     public class GiftPopup : MonoBehaviour
     {

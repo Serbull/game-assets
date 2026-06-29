@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb0441ed962d945aab89b6fc84a30edb, type: 3}
+  m_Name: DailyRewardConfig
+  m_EditorClassIdentifier: Serbull.GameAssets::Serbull.GameAssets.DailyReward.Config
+  Datas:
+  - Day: 1
+    Resource: money
+    Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+    Count: 100
+    BgSprite: {fileID: 0}
+    UseRarityColor: 1
+    BgColorStr: rare
+    BgColor: {r: 1, g: 1, b: 1, a: 1}
+  - Day: 2
+    Resource: money
+    Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+    Count: 200
+    BgSprite: {fileID: 0}
+    UseRarityColor: 1
+    BgColorStr: rare
+    BgColor: {r: 1, g: 1, b: 1, a: 1}
+  - Day: 3
+    Resource: money
+    Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+    Count: 300
+    BgSprite: {fileID: 0}
+    UseRarityColor: 1
+    BgColorStr: rare
+    BgColor: {r: 1, g: 1, b: 1, a: 1}
+  - Day: 4
+    Resource: money
+    Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+    Count: 400
+    BgSprite: {fileID: 0}
+    UseRarityColor: 1
+    BgColorStr: rare
+    BgColor: {r: 1, g: 1, b: 1, a: 1}
+  - Day: 5
+    Resource: money
+    Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+    Count: 500
+    BgSprite: {fileID: 0}
+    UseRarityColor: 1
+    BgColorStr: rare
+    BgColor: {r: 1, g: 1, b: 1, a: 1}
+  - Day: 6
+    Resource: money
+    Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+    Count: 600
+    BgSprite: {fileID: 0}
+    UseRarityColor: 1
+    BgColorStr: rare
+    BgColor: {r: 1, g: 1, b: 1, a: 1}
+  - Day: 7
+    Resource: money
+    Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+    Count: 700
+    BgSprite: {fileID: 0}
+    UseRarityColor: 1
+    BgColorStr: rare
+    BgColor: {r: 1, g: 1, b: 1, a: 1}

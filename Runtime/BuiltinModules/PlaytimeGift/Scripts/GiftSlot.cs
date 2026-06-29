@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-namespace Serbull.GameAssets.PlaytimeGift
+namespace Serbull.GameAssets.PlaytimeReward
 {
     public class GiftSlot : MonoBehaviour
     {

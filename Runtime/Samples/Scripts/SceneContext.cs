@@ -12,7 +12,7 @@ namespace Serbull.GameAssets.Samples
             var resourceGiver = new ResourceGiver();
             var purchaseService = new PurchaseService();
 
-            _sgaInstaller.Init(resourceGiver, purchaseService, saveData.RouletteData, false, "en");
+            _sgaInstaller.Init(resourceGiver, purchaseService, saveData.Roulette, saveData.DailyReward, false, "en");
         }
     }
 }
