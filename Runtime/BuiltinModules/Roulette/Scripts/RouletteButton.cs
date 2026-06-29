@@ -15,29 +15,37 @@ namespace Serbull.GameAssets.Roulette
 
         private void OnEnable()
         {
-            if (Services.Roulette != null)
-            {
-                Services.Roulette.OnSpinCountChanged += OnSpinCountChanged;
-                OnSpinCountChanged(Services.Roulette.SaveData.SpinCount);
-            }
+            if (Services.IsInitialized) OnServicesInitialized();
+            else Services.OnInitialized += OnServicesInitialized;
         }
 
         private void OnDisable()
         {
+            Services.OnInitialized -= OnServicesInitialized;
+
             if (Services.Roulette != null)
-            {
-                Services.Roulette.OnSpinCountChanged -= OnSpinCountChanged;
-            }
+                Services.Roulette.OnSpinCountChanged -= UpdateNotification;
         }
 
-        private void OnSpinCountChanged(int amount)
+        private void OnServicesInitialized()
         {
-            _ntf.SetActive(amount > 0);
+            Services.OnInitialized -= OnServicesInitialized;
+
+            if (Services.Roulette != null)
+                Services.Roulette.OnSpinCountChanged += UpdateNotification;
+
+            UpdateNotification();
+        }
+
+        private void UpdateNotification()
+        {
+            var service = Services.Roulette;
+            _ntf.SetActive(service != null && service.SpinCount > 0);
         }
 
         private void Button_OnClick()
         {
-            Services.UI.RoulettePopup.gameObject.SetActive(true);
+            Services.UI.RoulettePopup.Show();
         }
     }
 }

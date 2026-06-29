@@ -5,18 +5,18 @@ namespace Serbull.GameAssets.Roulette
 {
     public class RouletteService
     {
-        public event Action<int> OnSpinCountChanged;
+        public event Action OnSpinCountChanged;
         private static float _freeSpinTimer = -1;
 
         private readonly RouletteConfig _config;
         private readonly IResourceGiver _resourceGiver;
-        private readonly RouletteData _rouletteData;
+        private readonly SaveData _saveData;
 
-        public RouletteService(RouletteConfig config, IResourceGiver resourceGiver, RouletteData rouletteData)
+        public RouletteService(RouletteConfig config, IResourceGiver resourceGiver, SaveData saveData)
         {
             _config = config;
             _resourceGiver = resourceGiver;
-            _rouletteData = rouletteData;
+            _saveData = saveData;
 
             if (_freeSpinTimer == -1)
             {
@@ -28,7 +28,7 @@ namespace Serbull.GameAssets.Roulette
 
         public float FreeSpinTimer => _freeSpinTimer;
 
-        public RouletteData SaveData => _rouletteData;
+        public int SpinCount => _saveData.spinCount;
 
         public void Tick()
         {
@@ -45,14 +45,14 @@ namespace Serbull.GameAssets.Roulette
 
         public void AddSpin(int amount)
         {
-            _rouletteData.SpinCount += amount;
-            OnSpinCountChanged?.Invoke(_rouletteData.SpinCount);
+            _saveData.spinCount += amount;
+            OnSpinCountChanged?.Invoke();
         }
 
         public void SpendSpin(int amount)
         {
-            _rouletteData.SpinCount -= amount;
-            OnSpinCountChanged?.Invoke(_rouletteData.SpinCount);
+            _saveData.spinCount -= amount;
+            OnSpinCountChanged?.Invoke();
         }
 
         public void AddSpinWithPreview(int amount)

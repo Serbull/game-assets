@@ -78,7 +78,9 @@ namespace Serbull.GameAssets
         }
 #endif
 
-        public void Init(IResourceGiver resourceGiver, IPurchaseService purchaseService, Roulette.RouletteData rouletteData, DailyReward.SaveData dailyRewardSaveData, bool isMobileDevice, string language = "en")
+        public void Init(IResourceGiver resourceGiver, IPurchaseService purchaseService, 
+            Roulette.SaveData rouletteSaveData, DailyReward.SaveData dailyRewardSaveData, 
+            bool isMobileDevice, string language = "en")
         {
             //Purchase
             Services.ResourceGiver = resourceGiver;
@@ -137,7 +139,7 @@ namespace Serbull.GameAssets
             //Roulette
             if (_useRoulette)
             {
-                var rouletteManager = new Roulette.RouletteService(RouletteConfig, resourceGiver, rouletteData);
+                var rouletteManager = new Roulette.RouletteService(RouletteConfig, resourceGiver, rouletteSaveData);
                 Services.Roulette = rouletteManager;
             }
 
@@ -149,6 +151,8 @@ namespace Serbull.GameAssets
                 InteractButton.SetMobile(isMobileDevice);
                 InteractButton.Hide();
             }
+
+            Services.MarkAsInitialized();
         }
 
         private void Update()
@@ -167,6 +171,11 @@ namespace Serbull.GameAssets
             {
                 Services.InteractService.Update();
             }
+        }
+
+        private void OnDestroy()
+        {
+            Services.ResetSceneScopes();
         }
     }
 }

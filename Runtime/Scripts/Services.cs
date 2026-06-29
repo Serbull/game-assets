@@ -1,3 +1,5 @@
+using System;
+
 namespace Serbull.GameAssets
 {
     public static class Services
@@ -15,5 +17,20 @@ namespace Serbull.GameAssets
         //external
         public static IResourceGiver ResourceGiver;
         public static IPurchaseService Purchase;
+
+        public static bool IsInitialized { get; private set; }
+        public static event Action OnInitialized;
+
+        public static void MarkAsInitialized()
+        {
+            if (IsInitialized) return;
+            IsInitialized = true;
+            OnInitialized?.Invoke();
+        }
+
+        public static void ResetSceneScopes()
+        {
+            IsInitialized = false;
+        }
     }
 }

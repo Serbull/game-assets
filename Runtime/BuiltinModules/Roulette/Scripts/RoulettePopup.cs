@@ -5,7 +5,7 @@ using TMPro;
 
 namespace Serbull.GameAssets.Roulette
 {
-    public class RoulettePopup : MonoBehaviour
+    public class RoulettePopup : Popup
     {
         [SerializeField] private RouletteSlot[] _slots;
         [SerializeField] private Button _spinButton;
@@ -30,7 +30,7 @@ namespace Serbull.GameAssets.Roulette
             _config = Services.Roulette.Config;
 
             _spinButton.onClick.AddListener(SpinButton_OnClick);
-            _closeButton.onClick.AddListener(CloseButton_OnClick);
+            _closeButton.onClick.AddListener(Hide);
             _wheelTransform.localEulerAngles = Vector3.forward * Random.Range(0, 360f);
 
             var parts = Services.Roulette.Config.Parts;
@@ -57,7 +57,7 @@ namespace Serbull.GameAssets.Roulette
 
             if (Services.Roulette != null)
             {
-                Services.Roulette.OnSpinCountChanged += OnSpinCountChanged;
+                Services.Roulette.OnSpinCountChanged += UpdateUI;
             }
 
             if (Services.Purchase != null)
@@ -72,7 +72,7 @@ namespace Serbull.GameAssets.Roulette
         {
             if (Services.Roulette != null)
             {
-                Services.Roulette.OnSpinCountChanged -= OnSpinCountChanged;
+                Services.Roulette.OnSpinCountChanged -= UpdateUI;
             }
 
             if (Services.Purchase != null)
@@ -98,7 +98,7 @@ namespace Serbull.GameAssets.Roulette
             if (_isSpinning)
                 return;
 
-            if (Services.Roulette.SaveData.SpinCount <= 0)
+            if (Services.Roulette.SpinCount <= 0)
                 return;
 
             _isSpinning = true;
@@ -139,21 +139,11 @@ namespace Serbull.GameAssets.Roulette
                 });
         }
 
-        private void OnSpinCountChanged(int amount)
-        {
-            UpdateUI();
-        }
-
         public void UpdateUI()
         {
-            var amount = Services.Roulette.SaveData.SpinCount;
+            var amount = Services.Roulette.SpinCount;
             _spinButtonTxt.SetArguments(amount);
             _spinNotificator.SetActive(amount > 0);
-        }
-
-        private void CloseButton_OnClick()
-        {
-            gameObject.SetActive(false);
         }
     }
 }

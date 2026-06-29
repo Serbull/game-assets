@@ -3,8 +3,8 @@ using System;
 namespace Serbull.GameAssets.Roulette
 {
     [Serializable]
-    public class RouletteData
+    public class SaveData
     {
-        public int SpinCount;
+        public int spinCount;
     }
 }
