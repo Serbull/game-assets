@@ -30,6 +30,8 @@ namespace Serbull.GameAssets.DailyReward
 
         public void UpdateUI()
         {
+            if (Services.DailyRewardService == null) return;
+
             var config = Services.DailyRewardService.RewardConfig;
 
             var count = Mathf.Min(config.Datas.Length, _rewardSlots.Length);

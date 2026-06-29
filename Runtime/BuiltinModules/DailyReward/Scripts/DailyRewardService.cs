@@ -37,8 +37,6 @@ namespace Serbull.GameAssets
                 _saveData.lastLoginDate = today;
                 _saveData.totalDays++;
             }
-
-            OnUpdated?.Invoke();
         }
 
         public bool HasRewardToClaim()
