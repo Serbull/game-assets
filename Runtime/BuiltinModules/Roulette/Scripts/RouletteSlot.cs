@@ -12,9 +12,9 @@ namespace Serbull.GameAssets.Roulette
 
         public void Init(RouletteConfig.PartData partData)
         {
-            _icon.sprite = partData.Reward.Icon;
-            _countTxt.text = partData.Reward.Count.ToShortValue();
-            _percentTxt.text = partData.Weight + "%";
+            _icon.sprite = partData.reward.icon;
+            _countTxt.text = partData.reward.count.ToShortValue();
+            _percentTxt.text = partData.weight + "%";
         }
     }
 }

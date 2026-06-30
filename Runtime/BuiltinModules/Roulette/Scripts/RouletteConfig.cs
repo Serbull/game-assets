@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Serbull.GameAssets.Reward;
 
 namespace Serbull.GameAssets.Roulette
 {
@@ -8,16 +9,8 @@ namespace Serbull.GameAssets.Roulette
         [Serializable]
         public class PartData
         {
-            public int Weight;
-            public RewardData Reward;
-        }
-
-        [Serializable]
-        public class RewardData
-        {
-            public string Resource;
-            public Sprite Icon;
-            public int Count;
+            public int weight;
+            public RewardData reward;
         }
 
         public PartData[] Parts;
@@ -29,7 +22,7 @@ namespace Serbull.GameAssets.Roulette
         [ShowIf(nameof(UseInApps))] public Sprite InAppSprite;
         [Space]
         public bool AddFreeSpins;
-        [ShowIf(nameof(AddFreeSpins))] public int FreeSpinTimer = 300;
+        [ShowIf(nameof(AddFreeSpins))] public int FreeSpinTimer = 900;
 
         public int[] GetWeightIndexes()
         {
@@ -37,7 +30,7 @@ namespace Serbull.GameAssets.Roulette
 
             for (int i = 0; i < result.Length; i++)
             {
-                result[i] = Parts[i].Weight;
+                result[i] = Parts[i].weight;
             }
 
             return result;

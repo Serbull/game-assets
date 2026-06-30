@@ -6,6 +6,5 @@ namespace Serbull.GameAssets
         
         void AddEggWithPreview(string id);
         void AddPet(string id);
-        void AddPetWithPreview(string id);
     }
 }

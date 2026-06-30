@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Serbull.GameAssets
+namespace Serbull.GameAssets.Reward
 {
     [System.Serializable]
     public class RewardData

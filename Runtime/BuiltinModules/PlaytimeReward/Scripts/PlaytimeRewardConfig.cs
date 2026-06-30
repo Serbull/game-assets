@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Serbull.GameAssets.Rarity;
+using Serbull.GameAssets.Reward;
 
 namespace Serbull.GameAssets.PlaytimeReward
 {

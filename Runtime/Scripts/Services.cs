@@ -7,6 +7,7 @@ namespace Serbull.GameAssets
         //internal
         public static UIManager UI;
         public static RarityService Rarity;
+        public static RewardService Reward;
         public static RouletteService Roulette;
         public static ILocalizationService Localization = new Localization.EmptyService();
         public static AudioService Audio;

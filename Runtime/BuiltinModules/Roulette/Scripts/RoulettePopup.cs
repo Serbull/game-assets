@@ -105,7 +105,7 @@ namespace Serbull.GameAssets.Roulette
             Services.Roulette.SpendSpin(1);
 
             var winningIndex = MathfUtils.GetRandomIndexByWeight(Services.Roulette.Config.GetWeightIndexes());
-            var reward = Services.Roulette.Config.Parts[winningIndex].Reward;
+            var reward = Services.Roulette.Config.Parts[winningIndex].reward;
 
             var anglePerSlot = 360f / _slots.Length;
             var targetAngle = _fullRotations * 360f - ((winningIndex + 1) * anglePerSlot - Random.value * anglePerSlot);
@@ -135,7 +135,7 @@ namespace Serbull.GameAssets.Roulette
                 .OnComplete(() =>
                 {
                     _isSpinning = false;
-                    Services.Roulette.AddRewardWithPreview(reward);
+                    Services.Reward.AddReward(reward, true);
                 });
         }
 

@@ -82,7 +82,7 @@ namespace Serbull.GameAssets
             Roulette.SaveData rouletteSaveData, DailyReward.SaveData dailyRewardSaveData,
             bool isMobileDevice, string language = "en")
         {
-            //Purchase
+            //External
             Services.ResourceGiver = resourceGiver;
             Services.Purchase = purchaseService;
 
@@ -104,6 +104,10 @@ namespace Serbull.GameAssets
             //UI
             var uiService = new UIManager(RewardPreviewPopup, Notification, PlaytimeRewardPopup, DailyRewardPopup, RoulettePopup, InteractButton);
             Services.UI = uiService;
+
+            //Reward
+            var rewardService = new RewardService(resourceGiver, RewardPreviewPopup);
+            Services.Reward = rewardService;
 
             //Rare
             if (Services.Rarity == null)
@@ -139,8 +143,8 @@ namespace Serbull.GameAssets
             //Roulette
             if (_useRoulette)
             {
-                var rouletteManager = new RouletteService(RouletteConfig, resourceGiver, rouletteSaveData);
-                Services.Roulette = rouletteManager;
+                var rouletteService = new RouletteService(RouletteConfig, rouletteSaveData);
+                Services.Roulette = rouletteService;
             }
 
             //Interact
