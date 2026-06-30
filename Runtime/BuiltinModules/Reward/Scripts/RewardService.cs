@@ -1,6 +1,5 @@
 using UnityEngine;
 using Serbull.GameAssets.Reward;
-using Unity.Android.Gradle.Manifest;
 
 namespace Serbull.GameAssets
 {
