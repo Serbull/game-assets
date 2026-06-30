@@ -16,10 +16,11 @@ namespace Serbull.GameAssets.Roulette
         public PartData[] Parts;
 
         [Space]
+        public Sprite SpinIcon;
+        [Space]
         public bool UseInApps = true;
         [ShowIf(nameof(UseInApps))] public int InApp1AddSpins = 5;
         [ShowIf(nameof(UseInApps))] public int InApp2AddSpins = 20;
-        [ShowIf(nameof(UseInApps))] public Sprite InAppSprite;
         [Space]
         public bool AddFreeSpins;
         [ShowIf(nameof(AddFreeSpins))] public int FreeSpinTimer = 900;

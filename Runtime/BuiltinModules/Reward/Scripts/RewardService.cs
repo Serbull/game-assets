@@ -43,7 +43,7 @@ namespace Serbull.GameAssets
                     Services.PetService.AddPet(reward.id);
                     if (showPreview) Preview(reward);
                     break;
-                case RewardData.RewardType.LuckySpin:
+                case RewardData.RewardType.RouletteSpin:
                     Services.Roulette.AddSpin(reward.count);
                     if (showPreview) Preview(reward);
                     break;
