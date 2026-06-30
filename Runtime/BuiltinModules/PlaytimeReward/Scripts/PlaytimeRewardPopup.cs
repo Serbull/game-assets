@@ -26,10 +26,10 @@ namespace Serbull.GameAssets.PlaytimeReward
 
             var config = service.Config;
 
-            for (int i = 0; i < config.Datas.Length; i++)
+            for (int i = 0; i < config.entries.Length; i++)
             {
                 var slot = Instantiate(_slotPrefab, _content);
-                slot.Init(config.GetReward(i), i, service.RewardIsClaimed(i));
+                slot.Init(config.GetEntry(i), i, service.RewardIsClaimed(i));
             }
         }
 

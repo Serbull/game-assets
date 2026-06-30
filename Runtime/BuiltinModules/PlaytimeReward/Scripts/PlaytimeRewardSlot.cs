@@ -25,16 +25,16 @@ namespace Serbull.GameAssets.PlaytimeReward
             _button.onClick.AddListener(Button_OnClick);
         }
 
-        public void Init(RewardConfig.Reward rewardData, int id, bool isDone)
+        public void Init(RewardConfig.Entry rewardData, int id, bool isDone)
         {
             _id = id;
             _isDone = isDone;
-            var totalTime = rewardData.Time; /// (VipValues.IsBought() ? 2 : 1);
+            var totalTime = rewardData.time; /// (VipValues.IsBought() ? 2 : 1);
             _timeLeft = totalTime - Time.time;
-            _icon.sprite = rewardData.Icon;
-            _countTxt.text = "x" + rewardData.Count.ToShortValue();
+            _icon.sprite = rewardData.reward.icon;
+            _countTxt.text = "x" + rewardData.reward.count.ToShortValue();
             _doneMark.SetActive(isDone);
-            var bgColor = Services.Rarity.GetRarityData(rewardData.Color).Color;
+            var bgColor = Services.Rarity.GetRarityData(rewardData.color).Color;
             GetComponent<Image>().color = bgColor;
             UpdateTakeButton();
             StartCoroutine(Timer());

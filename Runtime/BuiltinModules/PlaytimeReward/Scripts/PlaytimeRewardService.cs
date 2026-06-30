@@ -22,7 +22,7 @@ namespace Serbull.GameAssets
 
         public int GetNearestGiftId()
         {
-            for (int i = 0; i < _config.Datas.Length; i++)
+            for (int i = 0; i < _config.entries.Length; i++)
             {
                 if (_claimedList.Contains(i))
                 {
@@ -37,10 +37,10 @@ namespace Serbull.GameAssets
 
         public void ClaimReward(int id)
         {
-            var data = _config.GetReward(id);
+            var data = _config.GetEntry(id).reward;
 
-            if ((data.ResourceType == RewardConfig.ResourceType.Egg
-                || data.ResourceType == RewardConfig.ResourceType.Pet)
+            if ((data.type == RewardData.RewardType.Egg
+                || data.type == RewardData.RewardType.Pet)
                 && Services.PetService == null)
             {
                 Debug.LogError("Pet Service is null. Add PetService in Services.");
@@ -49,24 +49,24 @@ namespace Serbull.GameAssets
 
             _claimedList.Add(id);
 
-            switch (data.ResourceType)
+            switch (data.type)
             {
-                case RewardConfig.ResourceType.Egg:
-                    Services.PetService.AddEggWithPreview(data.ResourceId);
+                case RewardData.RewardType.Egg:
+                    Services.PetService.AddEggWithPreview(data.id);
                     break;
-                case RewardConfig.ResourceType.Pet:
-                    Services.PetService.AddPetWithPreview(data.ResourceId);
+                case RewardData.RewardType.Pet:
+                    Services.PetService.AddPetWithPreview(data.id);
                     break;
-                case RewardConfig.ResourceType.LuckySpin:
-                    Services.Roulette.AddSpinWithPreview(data.Count);
+                case RewardData.RewardType.LuckySpin:
+                    Services.Roulette.AddSpinWithPreview(data.count);
                     break;
-                case RewardConfig.ResourceType.Custom:
-                    _resourceGiver.AddResource(data.ResourceId, data.Count);
-                    var item = new RewardPreviewItem(data.Icon, data.Count);
+                case RewardData.RewardType.Custom:
+                    _resourceGiver.AddResource(data.id, data.count);
+                    var item = new RewardPreviewItem(data.icon, data.count);
                     Services.UI.RewardPreviewPopup.Show(item);
                     break;
                 default:
-                    Debug.LogError("Not exist: " + data.ResourceType);
+                    Debug.LogError("Not exist: " + data.id);
                     break;
             }
         }

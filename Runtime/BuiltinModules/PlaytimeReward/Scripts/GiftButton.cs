@@ -60,7 +60,7 @@ namespace Serbull.GameAssets.PlaytimeReward
             var nearestGift = Services.PlaytimeRewardService.GetNearestGiftId();
             if (nearestGift >= 0)
             {
-                var totalTime = _config.GetReward(nearestGift).Time;
+                var totalTime = _config.GetEntry(nearestGift).time;
                 _timeLeft = totalTime - Time.time;
             }
             else

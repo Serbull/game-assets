@@ -12,32 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282dad3d1e7cf49dba77b7474da473e9, type: 3}
   m_Name: PlaytimeRewardConfig
   m_EditorClassIdentifier: 
-  Datas:
-  - ResourceType: 0
-    Resource: money
-    ResourceId: money
-    Color: uncommon
-    Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
-    Count: 500
-    Time: 10
-  - ResourceType: 1
-    Resource: egg_1
-    ResourceId: egg_1
-    Color: epic
-    Icon: {fileID: 21300000, guid: 621b52784a854f0194dd6e5b09c1df10, type: 3}
-    Count: 1
-    Time: 10
-  - ResourceType: 2
-    Resource: chick_common
-    ResourceId: chick_common
-    Color: legendary
-    Icon: {fileID: 21300000, guid: 342d1d2c0c1954d99afdb07793461acd, type: 3}
-    Count: 1
-    Time: 10
-  - ResourceType: 3
-    Resource: spin
-    ResourceId: spin
-    Color: rare
-    Icon: {fileID: 21300000, guid: 8403f0051d47641d998565d34bed096f, type: 3}
-    Count: 15
-    Time: 10
+  entries:
+  - reward:
+      type: 0
+      id: money
+      count: 100
+      icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+    color: uncommon
+    time: 10
+  - reward:
+      type: 1
+      id: egg_1
+      count: 1
+      icon: {fileID: 21300000, guid: 621b52784a854f0194dd6e5b09c1df10, type: 3}
+    color: epic
+    time: 10
+  - reward:
+      type: 2
+      id: chick_common
+      count: 1
+      icon: {fileID: 21300000, guid: 342d1d2c0c1954d99afdb07793461acd, type: 3}
+    color: legendary
+    time: 10
+  - reward:
+      type: 3
+      id: spin
+      count: 10
+      icon: {fileID: 21300000, guid: 8403f0051d47641d998565d34bed096f, type: 3}
+    color: rare
+    time: 10
