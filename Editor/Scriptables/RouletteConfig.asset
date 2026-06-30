@@ -48,4 +48,4 @@ MonoBehaviour:
   InApp2AddSpins: 20
   InAppSprite: {fileID: 21300000, guid: 8403f0051d47641d998565d34bed096f, type: 3}
   AddFreeSpins: 1
-  FreeSpinTimer: 14
+  FreeSpinTimer: 900

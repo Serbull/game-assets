@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Serbull.GameAssets
+namespace Serbull.GameAssets.Samples
 {
     public class InteractObject : MonoBehaviour
     {
