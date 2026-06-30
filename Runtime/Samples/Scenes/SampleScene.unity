@@ -2289,7 +2289,7 @@ MonoBehaviour:
   _localizationConfig: {fileID: 11400000, guid: 2d105407e60aa4704a3aeb6c820731f9, type: 2}
   _rarityConfig: {fileID: 11400000, guid: 832faf0ec43604b8a88ffaa4ddf9e681, type: 2}
   AudioConfig: {fileID: 11400000, guid: e6ee4351fc02a4fa6bfdf866ed651dd6, type: 2}
-  PlaytimeGiftConfig: {fileID: 11400000, guid: 4f4f4396669a54fce8fab7e4c73c002e, type: 2}
+  PlaytimeRewardConfig: {fileID: 11400000, guid: 4f4f4396669a54fce8fab7e4c73c002e, type: 2}
   DailyRewardConfig: {fileID: 11400000, guid: 37793f014b65e418ea7efe77f385e6db, type: 2}
   RouletteConfig: {fileID: 11400000, guid: f9668f30776434bd2bcc36e29a727867, type: 2}
   PlaytimeRewardPopup: {fileID: 1555021921}

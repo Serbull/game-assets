@@ -341,7 +341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48cb697ccd1374cfda1819772d045dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Serbull.GameAssets::Serbull.GameAssets.PlaytimeReward.GiftPopup
-  _giftSlotPrefab: {fileID: 2948536039720162667, guid: 483228742d0fd4569bde4483d3aee095, type: 3}
+  _slotPrefab: {fileID: 2948536039720162667, guid: 483228742d0fd4569bde4483d3aee095, type: 3}
   _content: {fileID: 5868623755126956892}
   _closeButton: {fileID: 1904192596001896944}
 --- !u!114 &1904192596001896944 stripped

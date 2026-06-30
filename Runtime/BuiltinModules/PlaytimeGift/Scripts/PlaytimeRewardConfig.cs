@@ -4,12 +4,18 @@ using Serbull.GameAssets.Rarity;
 
 namespace Serbull.GameAssets.PlaytimeReward
 {
-    public class GiftConfig : ScriptableObject
+    public class RewardConfig : ScriptableObject
     {
+        public enum ResourceType
+        {
+            Custom, Egg, Pet, LuckySpin
+        }
+
         [Serializable]
         public class Reward
         {
-            public string Resource;
+            public ResourceType ResourceType = ResourceType.Custom;
+            public string ResourceId;
             [RarityDropdown] public string Color;
             public Sprite Icon;
             public int Count;

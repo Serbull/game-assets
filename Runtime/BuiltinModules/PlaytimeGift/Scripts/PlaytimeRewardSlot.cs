@@ -5,7 +5,7 @@ using System.Collections;
 
 namespace Serbull.GameAssets.PlaytimeReward
 {
-    public class GiftSlot : MonoBehaviour
+    public class PlaytimeRewardSlot : MonoBehaviour
     {
         [SerializeField] private Image _icon;
         [SerializeField] private TextMeshProUGUI _timeTxt;
@@ -25,16 +25,16 @@ namespace Serbull.GameAssets.PlaytimeReward
             _button.onClick.AddListener(Button_OnClick);
         }
 
-        public void Init(GiftConfig.Reward giftData, int id, bool isDone)
+        public void Init(RewardConfig.Reward rewardData, int id, bool isDone)
         {
             _id = id;
             _isDone = isDone;
-            var totalTime = giftData.Time; /// (VipValues.IsBought() ? 2 : 1);
+            var totalTime = rewardData.Time; /// (VipValues.IsBought() ? 2 : 1);
             _timeLeft = totalTime - Time.time;
-            _icon.sprite = giftData.Icon;
-            _countTxt.text = "x" + giftData.Count.ToShortValue();
+            _icon.sprite = rewardData.Icon;
+            _countTxt.text = "x" + rewardData.Count.ToShortValue();
             _doneMark.SetActive(isDone);
-            var bgColor = Services.Rarity.GetRarityData(giftData.Color).Color;
+            var bgColor = Services.Rarity.GetRarityData(rewardData.Color).Color;
             GetComponent<Image>().color = bgColor;
             UpdateTakeButton();
             StartCoroutine(Timer());
@@ -57,7 +57,7 @@ namespace Serbull.GameAssets.PlaytimeReward
             if (_timeLeft <= 0)
             {
                 _isDone = true;
-                Services.PlaytimeGift.ClaimReward(_id);
+                Services.PlaytimeRewardService.ClaimReward(_id);
                 UpdateTakeButton();
                 _doneMark.SetActive(true);
             }

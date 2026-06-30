@@ -16,12 +16,12 @@ namespace Serbull.GameAssets
         [ReadOnly, SerializeField] private Localization.LocalizationConfig _localizationConfig;
         [ReadOnly, SerializeField] private Rarity.RarityConfig _rarityConfig;
         [ShowIf(nameof(_useAudio)), ReadOnly] public Audio.AudioConfig AudioConfig;
-        [ShowIf(nameof(_usePlaytimeReward)), ReadOnly] public PlaytimeReward.GiftConfig PlaytimeGiftConfig;
+        [ShowIf(nameof(_usePlaytimeReward)), ReadOnly] public PlaytimeReward.RewardConfig PlaytimeRewardConfig;
         [ShowIf(nameof(_useDailyReward)), ReadOnly] public DailyReward.RewardConfig DailyRewardConfig;
         [ShowIf(nameof(_useRoulette)), ReadOnly] public Roulette.RouletteConfig RouletteConfig;
 
         [Header("UI")]
-        [ShowIf(nameof(_usePlaytimeReward))] public PlaytimeReward.GiftPopup PlaytimeRewardPopup;
+        [ShowIf(nameof(_usePlaytimeReward))] public PlaytimeReward.PlaytimeRewardPopup PlaytimeRewardPopup;
         [ShowIf(nameof(_useDailyReward))] public DailyReward.RewardPopup DailyRewardPopup;
         [ShowIf(nameof(_useRoulette))] public Roulette.RoulettePopup RoulettePopup;
         public RewardPreviewPopup RewardPreviewPopup;
@@ -61,9 +61,9 @@ namespace Serbull.GameAssets
                 AudioConfig = ConfigProvider.LoadConfig<Audio.AudioConfig>(ConfigProvider.ConfigType.Audio);
             }
 
-            if (_usePlaytimeReward && PlaytimeGiftConfig == null)
+            if (_usePlaytimeReward && PlaytimeRewardConfig == null)
             {
-                PlaytimeGiftConfig = ConfigProvider.LoadConfig<PlaytimeReward.GiftConfig>(ConfigProvider.ConfigType.PlaytimeReward);
+                PlaytimeRewardConfig = ConfigProvider.LoadConfig<PlaytimeReward.RewardConfig>(ConfigProvider.ConfigType.PlaytimeReward);
             }
 
             if (_useDailyReward && DailyRewardConfig == null)
@@ -78,8 +78,8 @@ namespace Serbull.GameAssets
         }
 #endif
 
-        public void Init(IResourceGiver resourceGiver, IPurchaseService purchaseService, 
-            Roulette.SaveData rouletteSaveData, DailyReward.SaveData dailyRewardSaveData, 
+        public void Init(IResourceGiver resourceGiver, IPurchaseService purchaseService,
+            Roulette.SaveData rouletteSaveData, DailyReward.SaveData dailyRewardSaveData,
             bool isMobileDevice, string language = "en")
         {
             //Purchase
@@ -125,8 +125,8 @@ namespace Serbull.GameAssets
             //Playtime Reward
             if (_usePlaytimeReward)
             {
-                var playtimeGiftManager = new PlaytimeReward.GiftManager(PlaytimeGiftConfig, resourceGiver);
-                Services.PlaytimeGift = playtimeGiftManager;
+                var playtimeRewardService = new PlaytimeRewardService(PlaytimeRewardConfig, resourceGiver);
+                Services.PlaytimeRewardService = playtimeRewardService;
             }
 
             //Daily Reward

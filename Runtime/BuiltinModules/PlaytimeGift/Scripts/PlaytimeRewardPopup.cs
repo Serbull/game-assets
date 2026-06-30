@@ -3,9 +3,9 @@ using UnityEngine.UI;
 
 namespace Serbull.GameAssets.PlaytimeReward
 {
-    public class GiftPopup : MonoBehaviour
+    public class PlaytimeRewardPopup : Popup
     {
-        [SerializeField] private GiftSlot _giftSlotPrefab;
+        [SerializeField] private PlaytimeRewardSlot _slotPrefab;
         [SerializeField] private Transform _content;
         [SerializeField] private Button _closeButton;
 
@@ -16,17 +16,20 @@ namespace Serbull.GameAssets.PlaytimeReward
 
         private void OnEnable()
         {
-            var config = Services.PlaytimeGift.Config;
-
             foreach (Transform child in _content)
             {
                 Destroy(child.gameObject);
             }
 
+            var service = Services.PlaytimeRewardService;
+            if (service == null) return;
+
+            var config = service.Config;
+
             for (int i = 0; i < config.Datas.Length; i++)
             {
-                var slot = Instantiate(_giftSlotPrefab, _content);
-                slot.Init(config.GetReward(i), i, GiftManager.ClaimedList.Contains(i));
+                var slot = Instantiate(_slotPrefab, _content);
+                slot.Init(config.GetReward(i), i, service.RewardIsClaimed(i));
             }
         }
 

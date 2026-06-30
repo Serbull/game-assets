@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 namespace Serbull.GameAssets.PlaytimeReward
 {
+    [RequireComponent(typeof(Button))]
     public class GiftButton : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _text;
@@ -12,7 +13,7 @@ namespace Serbull.GameAssets.PlaytimeReward
         private float _lastUpdateTime = float.MinValue;
         private float _timeLeft;
 
-        private GiftConfig _config;
+        private RewardConfig _config;
 
         private void Awake()
         {
@@ -21,14 +22,14 @@ namespace Serbull.GameAssets.PlaytimeReward
 
         private void Start()
         {
-            _config = Services.PlaytimeGift.Config;
+            _config = Services.PlaytimeRewardService.Config;
 
             UpdateTimeLeft();
         }
 
         private void Button_OnClick()
         {
-            Services.UI.PlaytimeGiftPopup.gameObject.SetActive(true);
+            Services.UI.PlaytimeRewardPopup.Show();
         }
 
         private void Update()
@@ -56,7 +57,7 @@ namespace Serbull.GameAssets.PlaytimeReward
 
         private void UpdateTimeLeft()
         {
-            var nearestGift = Services.PlaytimeGift.GetNearestGiftId();
+            var nearestGift = Services.PlaytimeRewardService.GetNearestGiftId();
             if (nearestGift >= 0)
             {
                 var totalTime = _config.GetReward(nearestGift).Time;

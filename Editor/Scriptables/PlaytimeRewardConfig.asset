@@ -13,22 +13,30 @@ MonoBehaviour:
   m_Name: PlaytimeRewardConfig
   m_EditorClassIdentifier: 
   Datas:
-  - Resource: money
+  - ResourceType: 0
+    Resource: money
+    ResourceId: money
     Color: uncommon
     Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
     Count: 500
     Time: 10
-  - Resource: egg:egg_1
+  - ResourceType: 1
+    Resource: egg_1
+    ResourceId: egg_1
     Color: epic
     Icon: {fileID: 21300000, guid: 621b52784a854f0194dd6e5b09c1df10, type: 3}
     Count: 1
     Time: 10
-  - Resource: pet:chick_common
+  - ResourceType: 2
+    Resource: chick_common
+    ResourceId: chick_common
     Color: legendary
     Icon: {fileID: 21300000, guid: 342d1d2c0c1954d99afdb07793461acd, type: 3}
     Count: 1
     Time: 10
-  - Resource: roulette_spin
+  - ResourceType: 3
+    Resource: spin
+    ResourceId: spin
     Color: rare
     Icon: {fileID: 21300000, guid: 8403f0051d47641d998565d34bed096f, type: 3}
     Count: 15

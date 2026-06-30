@@ -10,11 +10,12 @@ namespace Serbull.GameAssets
         public static Roulette.RouletteService Roulette;
         public static ILocalizationService Localization = new Localization.EmptyService();
         public static AudioService Audio;
-        public static IPlaytimeGiftService PlaytimeGift;
+        public static PlaytimeRewardService PlaytimeRewardService;
         public static DailyRewardService DailyRewardService;
         public static Interact.InteractService InteractService;
 
         //external
+        public static IPetService PetService;
         public static IResourceGiver ResourceGiver;
         public static IPurchaseService Purchase;
 
