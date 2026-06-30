@@ -13,36 +13,42 @@ MonoBehaviour:
   m_Name: RouletteConfig
   m_EditorClassIdentifier: 
   Parts:
-  - Weight: 42
-    Reward:
-      Resource: money
-      Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
-      Count: 100
-  - Weight: 26
-    Reward:
-      Resource: money
-      Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
-      Count: 200
-  - Weight: 14
-    Reward:
-      Resource: money
-      Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
-      Count: 500
-  - Weight: 8
-    Reward:
-      Resource: money
-      Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
-      Count: 1000
-  - Weight: 5
-    Reward:
-      Resource: money
-      Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
-      Count: 1500
-  - Weight: 3
-    Reward:
-      Resource: money
-      Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
-      Count: 2000
+  - weight: 42
+    reward:
+      type: 0
+      id: money
+      count: 100
+      icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+  - weight: 26
+    reward:
+      type: 0
+      id: money
+      count: 200
+      icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+  - weight: 14
+    reward:
+      type: 0
+      id: money
+      count: 500
+      icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+  - weight: 8
+    reward:
+      type: 0
+      id: money
+      count: 1000
+      icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+  - weight: 5
+    reward:
+      type: 0
+      id: money
+      count: 1500
+      icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+  - weight: 3
+    reward:
+      type: 0
+      id: money
+      count: 2000
+      icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
   UseInApps: 1
   InApp1AddSpins: 5
   InApp2AddSpins: 20

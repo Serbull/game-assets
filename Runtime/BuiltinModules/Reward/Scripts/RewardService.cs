@@ -1,5 +1,6 @@
 using UnityEngine;
 using Serbull.GameAssets.Reward;
+using Unity.Android.Gradle.Manifest;
 
 namespace Serbull.GameAssets
 {
@@ -15,6 +16,16 @@ namespace Serbull.GameAssets
         }
 
         public void AddReward(RewardData reward, bool showPreview)
+        {
+            AddReward(reward, showPreview, null);
+        }
+
+        public void AddReward(RewardData reward, params RewardPreviewItem[] customPreviewItems)
+        {
+            AddReward(reward, true, customPreviewItems);
+        }
+
+        public void AddReward(RewardData reward, bool showPreview, params RewardPreviewItem[] customPreviewItems)
         {
             if ((reward.type == RewardData.RewardType.Egg
                 || reward.type == RewardData.RewardType.Pet)
@@ -39,7 +50,7 @@ namespace Serbull.GameAssets
                     break;
                 case RewardData.RewardType.Custom:
                     _resourceGiver.AddResource(reward.id, reward.count);
-                    if (showPreview) Preview(reward);
+                    if (showPreview) Preview(reward, customPreviewItems);
                     break;
                 default:
                     Debug.LogError("Not exist: " + reward.id);
@@ -49,14 +60,50 @@ namespace Serbull.GameAssets
 
         public void Preview(RewardData reward)
         {
+            Preview(reward, null);
+        }
+
+        public void Preview(RewardData reward, params RewardPreviewItem[] customPreviewItems)
+        {
             if (_rewardPreviewPopup == null)
             {
                 Debug.LogError("PreviewPopup is null. Add it in SGAInstaller.");
                 return;
             }
 
-            var luckySpinReward = new RewardPreviewItem("", "", reward.icon, reward.count, true, Color.white, Color.white, Color.white);
-            _rewardPreviewPopup.Show(luckySpinReward);
+            if (customPreviewItems != null)
+            {
+                _rewardPreviewPopup.Show(customPreviewItems);
+                return;
+            }
+
+            var item = new RewardPreviewItem("", "", reward.icon, reward.count, true, Color.white, Color.white, Color.white);
+            _rewardPreviewPopup.Show(item);
+        }
+
+        public void PreviewPet(string petId)
+        {
+            if (_rewardPreviewPopup == null)
+            {
+                Debug.LogError("PreviewPopup is null. Add it in SGAInstaller.");
+                return;
+            }
+
+            if (Services.PetService == null)
+            {
+                Debug.LogError("PetService is null. Add PetInstaller on Scene.");
+                return;
+            }
+
+            var petData = Services.PetService.GetPetData(petId);
+            var rarityData = Services.Rarity.GetRarityData(petData.rarity);
+
+            var item = new RewardPreviewItem(Services.Localization.GetText(petData.title),
+                Services.Localization.GetText(rarityData.LocalizationId),
+                petData.icon, 1, true,
+                Color.white, rarityData.Color, rarityData.Color);
+
+            Services.UI.RewardPreviewPopup.Show(item);
         }
     }
 }

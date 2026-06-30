@@ -1,33 +1,30 @@
 using System;
 using UnityEngine;
 using Serbull.GameAssets.Rarity;
+using Serbull.GameAssets.Reward;
 
 namespace Serbull.GameAssets.DailyReward
 {
     public class RewardConfig : ScriptableObject
     {
         [Serializable]
-        public class Reward
+        public class Entry
         {
-            public int Day;
-            public string Resource;
-            public Sprite Icon;
-            public int Count;
-            public Sprite BgSprite;
-            public bool UseRarityColor = true;
-            [ShowIf(nameof(UseRarityColor)), RarityDropdown]
-            public string BgColorStr;
-            [ShowIf(nameof(UseRarityColor), true)]
-            public Color BgColor = Color.white;
+            public int day;
+            public RewardData reward;
+            public Sprite bgSprite;
+            public bool bgRarityColor = true;
+            [ShowIf(nameof(bgRarityColor)), RarityDropdown]
+            public string bgColorStr;
+            [ShowIf(nameof(bgRarityColor), true)]
+            public Color bgColor = Color.white;
         }
 
-        public Reward[] Datas;
+        public Entry[] entries;
 
-        public Reward GetReward(int id)
-        {
-            return Datas[id];
-        }
+        public Entry GetEntry(int id) => entries[id];
 
+#if UNITY_EDITOR
         [Button("7 days preset (7 items)", 10)]
         private void Create7DaysPreset()
         {
@@ -48,23 +45,21 @@ namespace Serbull.GameAssets.DailyReward
 
         private void CreatePreset(int[] days)
         {
-            Array.Resize(ref Datas, days.Length);
+            Array.Resize(ref entries, days.Length);
             for (int i = 0; i < days.Length; i++)
             {
-                if (Datas[i] == null)
+                if (entries[i] == null)
                 {
-                    Datas[i] = new()
+                    entries[i] = new()
                     {
-                        Count = 1,
-                        BgColorStr = "rare"
+                        bgColorStr = "rare"
                     };
                 }
-                Datas[i].Day = days[i];
+                entries[i].day = days[i];
             }
 
-#if UNITY_EDITOR
             UnityEditor.EditorUtility.SetDirty(this);
-#endif
         }
     }
+#endif
 }

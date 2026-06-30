@@ -41,9 +41,9 @@ namespace Serbull.GameAssets
 
         public bool HasRewardToClaim()
         {
-            for (int i = 0; i < _config.Datas.Length; i++)
+            for (int i = 0; i < _config.entries.Length; i++)
             {
-                if (_config.Datas[i].Day <= _saveData.totalDays
+                if (_config.entries[i].day <= _saveData.totalDays
                     && !_saveData.claimedRewards.Contains(i))
                 {
                     return true;
@@ -55,10 +55,10 @@ namespace Serbull.GameAssets
 
         public bool IsRewardAvailable(int index)
         {
-            if (_config.Datas.Length <= index)
+            if (_config.entries.Length <= index)
                 return false;
 
-            return _config.Datas[index].Day <= _saveData.totalDays;
+            return _config.entries[index].day <= _saveData.totalDays;
         }
 
         public bool IsRewardClaimed(int index)
@@ -76,16 +76,8 @@ namespace Serbull.GameAssets
 
             _saveData.claimedRewards.Add(index);
 
-            var data = _config.GetReward(index);
-
-            Services.ResourceGiver.AddResource(data.Resource, data.Count);
-
-            if (Services.UI.RewardPreviewPopup != null)
-            {
-                var preview = new RewardPreviewItem("", "", data.Icon, data.Count, true, Color.white, Color.white, Color.white);
-                Services.UI.RewardPreviewPopup.Show(preview);
-            }
-
+            var reward = _config.GetEntry(index).reward;
+            Services.Reward.AddReward(reward, true);
             OnUpdated?.Invoke();
         }
     }

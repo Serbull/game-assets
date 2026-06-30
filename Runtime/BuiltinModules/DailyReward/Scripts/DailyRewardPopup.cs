@@ -34,7 +34,7 @@ namespace Serbull.GameAssets.DailyReward
 
             var config = Services.DailyReward.RewardConfig;
 
-            var count = Mathf.Min(config.Datas.Length, _rewardSlots.Length);
+            var count = Mathf.Min(config.entries.Length, _rewardSlots.Length);
 
             if (count < _rewardSlots.Length)
             {
@@ -44,14 +44,15 @@ namespace Serbull.GameAssets.DailyReward
             for (int i = 0; i < count; i++)
             {
                 var id = i;
-                var data = config.Datas[i];
-                var bgColor = data.UseRarityColor ?
-                    Services.Rarity.GetRarityData(data.BgColorStr).Color : data.BgColor;
+                var data = config.entries[i];
+                var bgColor = data.bgRarityColor ?
+                    Services.Rarity.GetRarityData(data.bgColorStr).Color : data.bgColor;
                 var available = Services.DailyReward.IsRewardAvailable(i);
                 var claimed = Services.DailyReward.IsRewardClaimed(i);
+                var reward = data.reward;
 
-                _rewardSlots[i].Init(data.BgSprite, bgColor, data.Day,
-                    data.Icon, data.Count,
+                _rewardSlots[i].Init(data.bgSprite, bgColor, data.day,
+                    reward.icon, reward.count,
                     available, claimed, () => OnItemClicked(id));
             }
         }

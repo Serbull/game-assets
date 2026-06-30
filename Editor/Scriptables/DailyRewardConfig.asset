@@ -11,61 +11,75 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb0441ed962d945aab89b6fc84a30edb, type: 3}
   m_Name: DailyRewardConfig
-  m_EditorClassIdentifier: Serbull.GameAssets::Serbull.GameAssets.DailyReward.Config
-  Datas:
-  - Day: 1
-    Resource: money
-    Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
-    Count: 100
-    BgSprite: {fileID: 0}
-    UseRarityColor: 1
-    BgColorStr: rare
-    BgColor: {r: 1, g: 1, b: 1, a: 1}
-  - Day: 2
-    Resource: money
-    Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
-    Count: 200
-    BgSprite: {fileID: 0}
-    UseRarityColor: 1
-    BgColorStr: rare
-    BgColor: {r: 1, g: 1, b: 1, a: 1}
-  - Day: 3
-    Resource: money
-    Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
-    Count: 300
-    BgSprite: {fileID: 0}
-    UseRarityColor: 1
-    BgColorStr: rare
-    BgColor: {r: 1, g: 1, b: 1, a: 1}
-  - Day: 4
-    Resource: money
-    Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
-    Count: 400
-    BgSprite: {fileID: 0}
-    UseRarityColor: 1
-    BgColorStr: rare
-    BgColor: {r: 1, g: 1, b: 1, a: 1}
-  - Day: 5
-    Resource: money
-    Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
-    Count: 500
-    BgSprite: {fileID: 0}
-    UseRarityColor: 1
-    BgColorStr: rare
-    BgColor: {r: 1, g: 1, b: 1, a: 1}
-  - Day: 6
-    Resource: money
-    Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
-    Count: 600
-    BgSprite: {fileID: 0}
-    UseRarityColor: 1
-    BgColorStr: rare
-    BgColor: {r: 1, g: 1, b: 1, a: 1}
-  - Day: 7
-    Resource: money
-    Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
-    Count: 700
-    BgSprite: {fileID: 0}
-    UseRarityColor: 1
-    BgColorStr: rare
-    BgColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EditorClassIdentifier: Serbull.GameAssets::Serbull.GameAssets.DailyReward.RewardConfig
+  entries:
+  - day: 1
+    reward:
+      type: 0
+      id: money
+      count: 100
+      icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+    bgSprite: {fileID: 0}
+    bgRarityColor: 1
+    bgColorStr: rare
+    bgColor: {r: 1, g: 1, b: 1, a: 1}
+  - day: 2
+    reward:
+      type: 0
+      id: money
+      count: 200
+      icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+    bgSprite: {fileID: 0}
+    bgRarityColor: 1
+    bgColorStr: rare
+    bgColor: {r: 1, g: 1, b: 1, a: 1}
+  - day: 3
+    reward:
+      type: 0
+      id: money
+      count: 300
+      icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+    bgSprite: {fileID: 0}
+    bgRarityColor: 1
+    bgColorStr: rare
+    bgColor: {r: 1, g: 1, b: 1, a: 1}
+  - day: 4
+    reward:
+      type: 0
+      id: money
+      count: 400
+      icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+    bgSprite: {fileID: 0}
+    bgRarityColor: 1
+    bgColorStr: rare
+    bgColor: {r: 1, g: 1, b: 1, a: 1}
+  - day: 5
+    reward:
+      type: 0
+      id: money
+      count: 500
+      icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+    bgSprite: {fileID: 0}
+    bgRarityColor: 1
+    bgColorStr: rare
+    bgColor: {r: 1, g: 1, b: 1, a: 1}
+  - day: 6
+    reward:
+      type: 0
+      id: money
+      count: 600
+      icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+    bgSprite: {fileID: 0}
+    bgRarityColor: 1
+    bgColorStr: rare
+    bgColor: {r: 1, g: 1, b: 1, a: 1}
+  - day: 7
+    reward:
+      type: 0
+      id: money
+      count: 700
+      icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+    bgSprite: {fileID: 0}
+    bgRarityColor: 1
+    bgColorStr: rare
+    bgColor: {r: 1, g: 1, b: 1, a: 1}
