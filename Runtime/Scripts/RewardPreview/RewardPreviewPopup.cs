@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Serbull.GameAssets
 {
-    public class RewardPreviewPopup : MonoBehaviour
+    public class RewardPreviewPopup : Popup
     {
         [SerializeField] private Transform _content;
         [SerializeField] private RewardPreviewSlot _slotPrefab;
@@ -12,17 +12,13 @@ namespace Serbull.GameAssets
 
         private void Awake()
         {
-            _closeButton.onClick.AddListener(Close_BtnClick);
+            _closeButton.onClick.AddListener(Hide);
+            OnHidden += PopupOnHidden;
         }
 
         public void Show(params RewardPreviewItem[] items)
         {
-            foreach (Transform child in _content)
-            {
-                Destroy(child.gameObject);
-            }
-
-            gameObject.SetActive(true);
+            base.Show();
             StartCoroutine(ShowItems(items));
         }
 
@@ -41,9 +37,12 @@ namespace Serbull.GameAssets
             _closeButton.gameObject.SetActive(true);
         }
 
-        public void Close_BtnClick()
+        private void PopupOnHidden()
         {
-            gameObject.SetActive(false);
+            foreach (Transform child in _content)
+            {
+                Destroy(child.gameObject);
+            }
         }
     }
 }

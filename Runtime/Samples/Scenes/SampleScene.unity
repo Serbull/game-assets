@@ -982,6 +982,67 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6867597315239537385, guid: 38ecfcd76e9864f34b6a1afeab2d4c6f, type: 3}
   m_PrefabInstance: {fileID: 728060450}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1143497158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1143497159}
+  - component: {fileID: 1143497160}
+  m_Layer: 0
+  m_Name: TEST - Preview Rewards
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1143497159
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143497158}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1143497160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143497158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3ea5e1bf9d254e97bc5c177da9aab48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Serbull.GameAssets.Samples::Serbull.GameAssets.Samples.RewardPreviewCaller
+  _items:
+  - Count: 100
+    Name: COINS
+    Description: Coins for problems
+    Icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+    ShowGlow: 1
+    NameColor: {r: 1, g: 1, b: 1, a: 1}
+    DescriptionColor: {r: 1, g: 1, b: 1, a: 1}
+    GlowColor: {r: 0.28773582, g: 1, b: 0.31459033, a: 1}
+  - Count: 1000
+    Name: EGG
+    Description: Super Egg
+    Icon: {fileID: 21300000, guid: 621b52784a854f0194dd6e5b09c1df10, type: 3}
+    ShowGlow: 1
+    NameColor: {r: 1, g: 1, b: 1, a: 1}
+    DescriptionColor: {r: 1, g: 1, b: 1, a: 1}
+    GlowColor: {r: 0.73984, g: 0.28773582, b: 1, a: 1}
 --- !u!1 &1195433997
 GameObject:
   m_ObjectHideFlags: 0
@@ -1866,11 +1927,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3158442250657339061, guid: aafb214a5cec84185ad06b10e48ec5d1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1011.4453
+      value: 780
       objectReference: {fileID: 0}
     - target: {fileID: 3158442250657339061, guid: aafb214a5cec84185ad06b10e48ec5d1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -540
+      value: -471.6279
       objectReference: {fileID: 0}
     - target: {fileID: 5221995058768351698, guid: aafb214a5cec84185ad06b10e48ec5d1, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2248,3 +2309,4 @@ SceneRoots:
   - {fileID: 1739813113}
   - {fileID: 2063772104}
   - {fileID: 1816962525}
+  - {fileID: 1143497159}
