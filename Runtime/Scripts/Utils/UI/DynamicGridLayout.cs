@@ -37,7 +37,16 @@ namespace Serbull.GameAssets.Utils
         private RectTransform _rect;
         private float _displayedFit = 1f;
 
+        // When true, the grid is fully at rest (fit reached, nothing revealing) and
+        // LateUpdate skips the whole placement pass until something changes.
+        private bool _settled;
+        private Vector2 _lastRectSize = new Vector2(-1f, -1f);
+
         private readonly List<RectTransform> _children = new List<RectTransform>();
+        private readonly List<RectTransform> _prevChildren = new List<RectTransform>();
+        private readonly HashSet<RectTransform> _currentSet = new HashSet<RectTransform>();
+        private readonly List<RectTransform> _removeBuffer = new List<RectTransform>();
+        private readonly List<float> _easedBuffer = new List<float>();
         private readonly Dictionary<RectTransform, float> _reveal = new Dictionary<RectTransform, float>();
 
         private RectTransform Rect => _rect != null ? _rect : (_rect = (RectTransform)transform);
@@ -55,17 +64,26 @@ namespace Serbull.GameAssets.Utils
 
         private void UpdateLayout(float dt, bool snap)
         {
-            CollectChildren();
+            bool structureChanged = CollectChildren();
 
             int count = _children.Count;
             if (count == 0)
             {
                 _displayedFit = 1f;
+                _settled = false;
                 return;
             }
 
-            float availableWidth = Rect.rect.width - (_padding != null ? _padding.horizontal : 0);
-            float availableHeight = Rect.rect.height - (_padding != null ? _padding.vertical : 0);
+            Vector2 rectSize = Rect.rect.size;
+            bool rectChanged = rectSize != _lastRectSize;
+            _lastRectSize = rectSize;
+
+            // Nothing moved, nothing appearing, size unchanged → skip the whole pass.
+            if (_settled && !structureChanged && !rectChanged && !snap)
+                return;
+
+            float availableWidth = rectSize.x - (_padding != null ? _padding.horizontal : 0);
+            float availableHeight = rectSize.y - (_padding != null ? _padding.vertical : 0);
 
             // Columns, rows and the fit factor are solved together: shrinking cells to
             // fit the height frees up horizontal space, which lets more columns fit, so
@@ -77,6 +95,16 @@ namespace Serbull.GameAssets.Utils
             else
                 _displayedFit = Mathf.Lerp(_displayedFit, targetFit, 1f - Mathf.Exp(-_fitSmoothSpeed * dt));
 
+            // Step every child's reveal once (single curve eval), cache the eased value.
+            bool anyRevealing = false;
+            for (int i = 0; i < count; i++)
+            {
+                float p = StepReveal(_children[i], dt, snap);
+                _easedBuffer[i] = Evaluate(p);
+                if (p < 1f - 0.0001f)
+                    anyRevealing = true;
+            }
+
             float fit = _displayedFit;
             Vector2 cell = _cellSize * fit;
             Vector2 space = _spacing * fit;
@@ -87,30 +115,27 @@ namespace Serbull.GameAssets.Utils
             float padOffsetX = _padding != null ? (_padding.left - _padding.right) * 0.5f : 0f;
             float topRowY = gridHeight * 0.5f - cell.y * 0.5f + padOffsetY;
 
-            // --- per child reveal + placement -----------------------------------
             for (int row = 0; row < rows; row++)
             {
                 int start = row * columns;
                 int end = Mathf.Min(start + columns, count);
                 float rowY = topRowY - row * (cell.y + space.y);
 
-                // First pass: compute eased reveal per child and total row width.
+                // First pass: total row width from cached eased values.
                 float rowWidth = 0f;
                 for (int i = start; i < end; i++)
                 {
-                    float eased = StepReveal(_children[i], dt, snap);
-                    float w = cell.x * eased;
+                    float eased = _easedBuffer[i];
                     if (i > start)
                         rowWidth += space.x * eased; // spacing also fades in with the child
-                    rowWidth += w;
+                    rowWidth += cell.x * eased;
                 }
 
                 // Second pass: place children, centering the row.
                 float cursor = -rowWidth * 0.5f + padOffsetX;
                 for (int i = start; i < end; i++)
                 {
-                    RectTransform child = _children[i];
-                    float eased = _reveal.TryGetValue(child, out float p) ? Evaluate(p) : 1f;
+                    float eased = _easedBuffer[i];
                     float w = cell.x * eased;
 
                     if (i > start)
@@ -119,9 +144,15 @@ namespace Serbull.GameAssets.Utils
                     float centerX = cursor + w * 0.5f;
                     cursor += w;
 
-                    ApplyChild(child, new Vector2(centerX, rowY), eased * fit);
+                    ApplyChild(_children[i], new Vector2(centerX, rowY), eased * fit);
                 }
             }
+
+            // At rest once the fit has converged and no child is still growing in.
+            bool fitDone = Mathf.Abs(_displayedFit - targetFit) < 0.0005f;
+            if (fitDone)
+                _displayedFit = targetFit;
+            _settled = fitDone && !anyRevealing && !structureChanged && !rectChanged;
         }
 
         /// <summary>
@@ -172,7 +203,8 @@ namespace Serbull.GameAssets.Utils
             rows = Mathf.CeilToInt(count / (float)columns);
         }
 
-        private void CollectChildren()
+        /// <summary>Rebuilds the active-children list; returns true if it changed since last frame.</summary>
+        private bool CollectChildren()
         {
             _children.Clear();
             int childCount = transform.childCount;
@@ -185,21 +217,49 @@ namespace Serbull.GameAssets.Utils
                     _children.Add(rt);
             }
 
-            // Drop reveal entries for children that no longer exist.
-            if (_reveal.Count > 0)
-            {
-                _staleBuffer.Clear();
-                foreach (var kvp in _reveal)
-                {
-                    if (!_children.Contains(kvp.Key))
-                        _staleBuffer.Add(kvp.Key);
-                }
-                for (int i = 0; i < _staleBuffer.Count; i++)
-                    _reveal.Remove(_staleBuffer[i]);
-            }
-        }
+            int count = _children.Count;
 
-        private readonly List<RectTransform> _staleBuffer = new List<RectTransform>();
+            bool changed = count != _prevChildren.Count;
+            if (!changed)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    if (_children[i] != _prevChildren[i])
+                    {
+                        changed = true;
+                        break;
+                    }
+                }
+            }
+
+            if (changed)
+            {
+                // Sync the previous-frame snapshot and reveal dictionary (O(n), runs only on change).
+                _prevChildren.Clear();
+                _prevChildren.AddRange(_children);
+
+                if (_reveal.Count > 0)
+                {
+                    _currentSet.Clear();
+                    for (int i = 0; i < count; i++)
+                        _currentSet.Add(_children[i]);
+
+                    _removeBuffer.Clear();
+                    foreach (var key in _reveal.Keys)
+                    {
+                        if (!_currentSet.Contains(key))
+                            _removeBuffer.Add(key);
+                    }
+                    for (int i = 0; i < _removeBuffer.Count; i++)
+                        _reveal.Remove(_removeBuffer[i]);
+                }
+            }
+
+            while (_easedBuffer.Count < count)
+                _easedBuffer.Add(0f);
+
+            return changed;
+        }
 
         private float StepReveal(RectTransform child, float dt, bool snap)
         {
@@ -207,7 +267,9 @@ namespace Serbull.GameAssets.Utils
 
             if (!_reveal.TryGetValue(child, out float p))
             {
-                // Newly seen child: start invisible only when animating, else full size.
+                // First time we see this child: apply its fixed transform setup once.
+                SetupChild(child);
+                // Start invisible only when animating, else full size.
                 p = animate ? 0f : 1f;
             }
             else if (animate)
@@ -220,7 +282,7 @@ namespace Serbull.GameAssets.Utils
             }
 
             _reveal[child] = p;
-            return Evaluate(p);
+            return p;
         }
 
         private float Evaluate(float p)
@@ -228,17 +290,17 @@ namespace Serbull.GameAssets.Utils
             return _revealCurve != null ? _revealCurve.Evaluate(p) : p;
         }
 
-        private void ApplyChild(RectTransform child, Vector2 anchoredPos, float scale)
+        // Anchors and size never change per frame, so set them only when a child first appears.
+        private void SetupChild(RectTransform child)
         {
             if (_controlChildAnchors)
-            {
                 child.anchorMin = child.anchorMax = child.pivot = new Vector2(0.5f, 0.5f);
-            }
             if (_controlChildSize)
-            {
                 child.sizeDelta = _cellSize;
-            }
+        }
 
+        private void ApplyChild(RectTransform child, Vector2 anchoredPos, float scale)
+        {
             child.anchoredPosition = anchoredPos;
             child.localScale = new Vector3(scale, scale, 1f);
         }
