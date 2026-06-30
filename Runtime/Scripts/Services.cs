@@ -6,13 +6,13 @@ namespace Serbull.GameAssets
     {
         //internal
         public static UIManager UI;
-        public static Rarity.RarityService Rarity;
-        public static Roulette.RouletteService Roulette;
+        public static RarityService Rarity;
+        public static RouletteService Roulette;
         public static ILocalizationService Localization = new Localization.EmptyService();
         public static AudioService Audio;
-        public static PlaytimeRewardService PlaytimeRewardService;
-        public static DailyRewardService DailyRewardService;
-        public static Interact.InteractService InteractService;
+        public static PlaytimeRewardService PlaytimeReward;
+        public static DailyRewardService DailyReward;
+        public static Interact.InteractService Interact;
 
         //external
         public static IPetService PetService;

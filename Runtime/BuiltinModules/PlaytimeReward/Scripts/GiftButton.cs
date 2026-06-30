@@ -22,7 +22,7 @@ namespace Serbull.GameAssets.PlaytimeReward
 
         private void Start()
         {
-            _config = Services.PlaytimeRewardService.Config;
+            _config = Services.PlaytimeReward.Config;
 
             UpdateTimeLeft();
         }
@@ -57,7 +57,7 @@ namespace Serbull.GameAssets.PlaytimeReward
 
         private void UpdateTimeLeft()
         {
-            var nearestGift = Services.PlaytimeRewardService.GetNearestGiftId();
+            var nearestGift = Services.PlaytimeReward.GetNearestGiftId();
             if (nearestGift >= 0)
             {
                 var totalTime = _config.GetEntry(nearestGift).time;

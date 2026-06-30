@@ -23,8 +23,8 @@ namespace Serbull.GameAssets.DailyReward
         {
             Services.OnInitialized -= OnServicesInitialized;
 
-            if (Services.DailyRewardService != null)
-                Services.DailyRewardService.OnUpdated -= UpdateNotification;
+            if (Services.DailyReward != null)
+                Services.DailyReward.OnUpdated -= UpdateNotification;
         }
 
         private void Button_OnClick()
@@ -36,15 +36,15 @@ namespace Serbull.GameAssets.DailyReward
         {
             Services.OnInitialized -= OnServicesInitialized;
 
-            if (Services.DailyRewardService != null)
-                Services.DailyRewardService.OnUpdated += UpdateNotification;
+            if (Services.DailyReward != null)
+                Services.DailyReward.OnUpdated += UpdateNotification;
 
             UpdateNotification();
         }
 
         private void UpdateNotification()
         {
-            var service = Services.DailyRewardService;
+            var service = Services.DailyReward;
             _notification.SetActive(service != null && service.HasRewardToClaim());
         }
     }

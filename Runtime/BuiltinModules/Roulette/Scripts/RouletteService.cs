@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
+using Serbull.GameAssets.Roulette;
 
-namespace Serbull.GameAssets.Roulette
+namespace Serbull.GameAssets
 {
     public class RouletteService
     {

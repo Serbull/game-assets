@@ -21,7 +21,7 @@ namespace Serbull.GameAssets.PlaytimeReward
                 Destroy(child.gameObject);
             }
 
-            var service = Services.PlaytimeRewardService;
+            var service = Services.PlaytimeReward;
             if (service == null) return;
 
             var config = service.Config;

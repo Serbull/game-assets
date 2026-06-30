@@ -108,7 +108,7 @@ namespace Serbull.GameAssets
             //Rare
             if (Services.Rarity == null)
             {
-                var rarityService = new Rarity.RarityService(_rarityConfig);
+                var rarityService = new RarityService(_rarityConfig);
                 Services.Rarity = rarityService;
                 //Add localizations
                 Services.Localization.AddLocalization(_rarityConfig.Localizations);
@@ -126,20 +126,20 @@ namespace Serbull.GameAssets
             if (_usePlaytimeReward)
             {
                 var playtimeRewardService = new PlaytimeRewardService(PlaytimeRewardConfig, resourceGiver);
-                Services.PlaytimeRewardService = playtimeRewardService;
+                Services.PlaytimeReward = playtimeRewardService;
             }
 
             //Daily Reward
             if (_useDailyReward)
             {
                 var dailyRewardService = new DailyRewardService(DailyRewardConfig, dailyRewardSaveData);
-                Services.DailyRewardService = dailyRewardService;
+                Services.DailyReward = dailyRewardService;
             }
 
             //Roulette
             if (_useRoulette)
             {
-                var rouletteManager = new Roulette.RouletteService(RouletteConfig, resourceGiver, rouletteSaveData);
+                var rouletteManager = new RouletteService(RouletteConfig, resourceGiver, rouletteSaveData);
                 Services.Roulette = rouletteManager;
             }
 
@@ -147,7 +147,7 @@ namespace Serbull.GameAssets
             if (_useInteract)
             {
                 var interactService = new Interact.InteractService(Camera.main.transform);
-                Services.InteractService = interactService;
+                Services.Interact = interactService;
                 InteractButton.SetMobile(isMobileDevice);
                 InteractButton.Hide();
             }
@@ -169,7 +169,7 @@ namespace Serbull.GameAssets
 
             if (_useInteract)
             {
-                Services.InteractService.Update();
+                Services.Interact.Update();
             }
         }
 

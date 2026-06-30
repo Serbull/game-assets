@@ -1,6 +1,7 @@
 using UnityEngine;
+using Serbull.GameAssets.Rarity;
 
-namespace Serbull.GameAssets.Rarity
+namespace Serbull.GameAssets
 {
     public class RarityService
     {

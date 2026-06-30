@@ -57,7 +57,7 @@ namespace Serbull.GameAssets.PlaytimeReward
             if (_timeLeft <= 0)
             {
                 _isDone = true;
-                Services.PlaytimeRewardService.ClaimReward(_id);
+                Services.PlaytimeReward.ClaimReward(_id);
                 UpdateTakeButton();
                 _doneMark.SetActive(true);
             }

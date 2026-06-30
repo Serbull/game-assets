@@ -16,23 +16,23 @@ namespace Serbull.GameAssets.DailyReward
 
         private void OnEnable()
         {
-            if (Services.DailyRewardService != null)
-                Services.DailyRewardService.OnUpdated += UpdateUI;
+            if (Services.DailyReward != null)
+                Services.DailyReward.OnUpdated += UpdateUI;
 
             UpdateUI();
         }
 
         private void OnDisable()
         {
-            if (Services.DailyRewardService != null)
-                Services.DailyRewardService.OnUpdated -= UpdateUI;
+            if (Services.DailyReward != null)
+                Services.DailyReward.OnUpdated -= UpdateUI;
         }
 
         public void UpdateUI()
         {
-            if (Services.DailyRewardService == null) return;
+            if (Services.DailyReward == null) return;
 
-            var config = Services.DailyRewardService.RewardConfig;
+            var config = Services.DailyReward.RewardConfig;
 
             var count = Mathf.Min(config.Datas.Length, _rewardSlots.Length);
 
@@ -47,8 +47,8 @@ namespace Serbull.GameAssets.DailyReward
                 var data = config.Datas[i];
                 var bgColor = data.UseRarityColor ?
                     Services.Rarity.GetRarityData(data.BgColorStr).Color : data.BgColor;
-                var available = Services.DailyRewardService.IsRewardAvailable(i);
-                var claimed = Services.DailyRewardService.IsRewardClaimed(i);
+                var available = Services.DailyReward.IsRewardAvailable(i);
+                var claimed = Services.DailyReward.IsRewardClaimed(i);
 
                 _rewardSlots[i].Init(data.BgSprite, bgColor, data.Day,
                     data.Icon, data.Count,
@@ -58,13 +58,13 @@ namespace Serbull.GameAssets.DailyReward
 
         private void OnItemClicked(int id)
         {
-            if (!Services.DailyRewardService.IsRewardAvailable(id))
+            if (!Services.DailyReward.IsRewardAvailable(id))
                 return;
 
-            if (Services.DailyRewardService.IsRewardClaimed(id))
+            if (Services.DailyReward.IsRewardClaimed(id))
                 return;
 
-            Services.DailyRewardService.ClaimReward(id);
+            Services.DailyReward.ClaimReward(id);
         }
     }
 }

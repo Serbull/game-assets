@@ -10,12 +10,12 @@ namespace Serbull.GameAssets.Interact
 
         private void OnDisable()
         {
-            Services.InteractService.RemoveInteractTrigger(this);
+            Services.Interact.RemoveInteractTrigger(this);
         }
 
         private void OnDestroy()
         {
-            Services.InteractService.RemoveInteractTrigger(this);
+            Services.Interact.RemoveInteractTrigger(this);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -25,7 +25,7 @@ namespace Serbull.GameAssets.Interact
                 _isPlyerInside = true;
                 if (Interactable != null && Interactable.CanInteract)
                 {
-                    Services.InteractService.AddInteractTrigger(this);
+                    Services.Interact.AddInteractTrigger(this);
                 }
             }
         }
@@ -35,7 +35,7 @@ namespace Serbull.GameAssets.Interact
             if (other.CompareTag("Player"))
             {
                 _isPlyerInside = false;
-                Services.InteractService.RemoveInteractTrigger(this);
+                Services.Interact.RemoveInteractTrigger(this);
             }
         }
 
@@ -50,18 +50,18 @@ namespace Serbull.GameAssets.Interact
             {
                 if (Interactable.CanInteract)
                 {
-                    if (Services.InteractService.HasInteractTrigger(this))
+                    if (Services.Interact.HasInteractTrigger(this))
                     {
-                        Services.InteractService.UpdateInteracts(true);
+                        Services.Interact.UpdateInteracts(true);
                     }
                     else
                     {
-                        Services.InteractService.AddInteractTrigger(this);
+                        Services.Interact.AddInteractTrigger(this);
                     }
                 }
                 else
                 {
-                    Services.InteractService.RemoveInteractTrigger(this);
+                    Services.Interact.RemoveInteractTrigger(this);
                 }
             }
         }
