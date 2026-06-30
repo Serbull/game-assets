@@ -20,10 +20,14 @@ namespace Serbull.GameAssets.Audio
         {
             public string Id;
             public AudioClip[] Clips;
-            [Range(0f, 1f)] public float Volume = 1f;
+            [Range(0f, 1f)] 
+            public float Volume = 1f;
             [Header("Pitch Effect")]
             public bool UsePitchEffect;
+            [ShowIf(nameof(UsePitchEffect))]
             public float PitchStep = 0.2f;
+            [ShowIf(nameof(UsePitchEffect))]
+            public float PitchResetTime = 2f;
         }
 
         public AudioMixer AudioMixer;

@@ -117,9 +117,9 @@ namespace Serbull.GameAssets
             //Audio
             if (_useAudio)
             {
-                var audioManager = new GameObject("AudioManager").AddComponent<Audio.AudioManager>();
-                audioManager.Init(AudioConfig);
-                Services.Audio = audioManager;
+                var audioService = new GameObject("AudioService").AddComponent<AudioService>();
+                audioService.Init(AudioConfig);
+                Services.Audio = audioService;
             }
 
             //Playtime Reward

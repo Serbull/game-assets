@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
+using Serbull.GameAssets.Audio;
 
-namespace Serbull.GameAssets.Audio
+namespace Serbull.GameAssets
 {
-    public class AudioManager : MonoBehaviour, IAudioService
+    public class AudioService : MonoBehaviour
     {
         private class PitchParam
         {
@@ -20,9 +21,15 @@ namespace Serbull.GameAssets.Audio
             public bool IsPlaying;
         }
 
+        private class SoundData
+        {
+            public AudioSource AudioSource;
+            public string SoundId;
+        }
+
         private readonly List<MusicData> _musicDatas = new();
         private readonly Dictionary<string, PitchParam> _soundPitches = new();
-        private readonly List<AudioSource> _soundSources = new();
+        private readonly List<SoundData> _soundSources = new();
 
         private AudioConfig _audioConfig;
         private Transform _soundsRoot;
@@ -52,25 +59,6 @@ namespace Serbull.GameAssets.Audio
             _soundsRoot.SetParent(transform);
         }
 
-        private AudioSource GetFreeSoundSource()
-        {
-            foreach (var source in _soundSources)
-            {
-                if (!source.isPlaying)
-                {
-                    return source;
-                }
-            }
-
-            var newSource = new GameObject($"Sound ({_soundSources.Count})")
-                .AddComponent<AudioSource>();
-            newSource.transform.SetParent(_soundsRoot);
-            newSource.outputAudioMixerGroup = _audioConfig.SoundMixerGroup;
-            newSource.playOnAwake = false;
-            _soundSources.Add(newSource);
-            return newSource;
-        }
-
         private void Update()
         {
             foreach (var music in _musicDatas)
@@ -80,6 +68,27 @@ namespace Serbull.GameAssets.Audio
                     PlayNextMusicClip(music);
                 }
             }
+        }
+
+        private SoundData GetFreeSoundSource()
+        {
+            foreach (var soundData in _soundSources)
+            {
+                if (!soundData.AudioSource.isPlaying)
+                {
+                    return soundData;
+                }
+            }
+
+            var newSource = new GameObject($"Sound ({_soundSources.Count})")
+                .AddComponent<AudioSource>();
+            newSource.transform.SetParent(_soundsRoot);
+            newSource.outputAudioMixerGroup = _audioConfig.SoundMixerGroup;
+            newSource.playOnAwake = false;
+
+            var data = new SoundData { AudioSource = newSource };
+            _soundSources.Add(data);
+            return data;
         }
 
         public void SetMusicVolume(float volume)
@@ -98,17 +107,18 @@ namespace Serbull.GameAssets.Audio
             _audioConfig.AudioMixer.SetFloat("SoundVolume", mixerVolume);
         }
 
-        public void PlayMusic(string musicName)
+        public AudioSource PlayMusic(string musicName)
         {
             var data = _musicDatas.FirstOrDefault(i => i.ConfigData.Id == musicName);
             if (data == null)
             {
                 Debug.LogWarning($"Not exist music with id: {musicName}.");
-                return;
+                return null;
             }
 
             data.IsPlaying = true;
             PlayNextMusicClip(data);
+            return data.AudioSource;
         }
 
         public void StopMusic(string musicName)
@@ -124,37 +134,48 @@ namespace Serbull.GameAssets.Audio
             data.AudioSource.Stop();
         }
 
-        public void PlaySound(string soundName)
+        public AudioSource PlaySound(string soundName)
         {
-            PlaySound(soundName, 0, 0);
+            return PlaySound(soundName, 0, 0);
         }
 
-        public void PlaySound(string soundName, float ovveridePitch)
+        public AudioSource PlaySound(string soundName, float ovveridePitch)
         {
-            PlaySound(soundName, 0, ovveridePitch);
+            return PlaySound(soundName, 0, ovveridePitch);
         }
 
-        public void PlaySound(string soundName, float overrideVolume, float overridePitch)
+        public AudioSource PlaySound(string soundName, float overrideVolume, float overridePitch)
         {
             var sound = _audioConfig.Sounds.FirstOrDefault((sound) => sound.Id == soundName);
 
             if (sound == null)
             {
                 Debug.LogWarning($"Not exist sound with id: {soundName}.");
-                return;
+                return null;
             }
 
             var clip = sound.Clips[Random.Range(0, sound.Clips.Length)];
 
             if (sound.UsePitchEffect)
             {
-                PlaySound(clip, sound.Volume, sound.Id, sound.PitchStep);
+                return PlaySound(clip, sound.Volume, sound.Id, sound.PitchStep, sound.PitchResetTime);
             }
             else
             {
                 var volume = overrideVolume > 0 ? overrideVolume : sound.Volume;
                 var pitch = overridePitch > 0 ? overridePitch : 1;
-                PlaySound(clip, volume, pitch);
+                return PlaySound(clip, volume, pitch, sound.Id);
+            }
+        }
+
+        public void StopSound(string soundName)
+        {
+            foreach (var soundData in _soundSources)
+            {
+                if (soundData.SoundId == soundName && soundData.AudioSource.isPlaying)
+                {
+                    soundData.AudioSource.Stop();
+                }
             }
         }
 
@@ -172,14 +193,18 @@ namespace Serbull.GameAssets.Audio
             musicData.AudioSource.Play();
         }
 
-        private void PlaySound(AudioClip clip, float volume, float pitch)
+        private AudioSource PlaySound(AudioClip clip, float volume, float pitch, string soundId)
         {
-            var source = GetFreeSoundSource();
-            source.pitch = pitch;
-            source.PlayOneShot(clip, volume);
+            var soundData = GetFreeSoundSource();
+            soundData.SoundId = soundId;
+            soundData.AudioSource.pitch = pitch;
+            soundData.AudioSource.clip = clip;
+            soundData.AudioSource.volume = volume;
+            soundData.AudioSource.Play();
+            return soundData.AudioSource;
         }
 
-        private void PlaySound(AudioClip clip, float volume, string pitchId, float pitchStep)
+        private AudioSource PlaySound(AudioClip clip, float volume, string pitchId, float pitchStep, float pitchResetTime)
         {
             if (!_soundPitches.ContainsKey(pitchId))
             {
@@ -188,16 +213,20 @@ namespace Serbull.GameAssets.Audio
 
             var pitchParam = _soundPitches[pitchId];
 
-            if (Time.time - pitchParam.LastPlayTime > 2f)
+            if (Time.time - pitchParam.LastPlayTime > pitchResetTime)
                 pitchParam.PlayTimes = 0;
 
             pitchParam.LastPlayTime = Time.time;
             pitchParam.PlayTimes++;
 
             var pitch = 1f - pitchStep + pitchParam.PlayTimes * pitchStep;
-            var source = GetFreeSoundSource();
-            source.pitch = pitch;
-            source.PlayOneShot(clip, volume);
+            var soundData = GetFreeSoundSource();
+            soundData.SoundId = pitchId;
+            soundData.AudioSource.pitch = pitch;
+            soundData.AudioSource.clip = clip;
+            soundData.AudioSource.volume = volume;
+            soundData.AudioSource.Play();
+            return soundData.AudioSource;
         }
     }
 }
