@@ -49,9 +49,9 @@ MonoBehaviour:
       id: money
       count: 2000
       icon: {fileID: 21300000, guid: e59251683cb71492ca2b6d7a48bf8ddf, type: 3}
+  SpinIcon: {fileID: 21300000, guid: 8403f0051d47641d998565d34bed096f, type: 3}
   UseInApps: 1
   InApp1AddSpins: 5
   InApp2AddSpins: 20
-  InAppSprite: {fileID: 21300000, guid: 8403f0051d47641d998565d34bed096f, type: 3}
   AddFreeSpins: 1
   FreeSpinTimer: 900

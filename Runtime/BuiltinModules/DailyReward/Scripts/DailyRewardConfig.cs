@@ -60,6 +60,6 @@ namespace Serbull.GameAssets.DailyReward
 
             UnityEditor.EditorUtility.SetDirty(this);
         }
-    }
 #endif
+    }
 }
