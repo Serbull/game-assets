@@ -1,0 +1,12 @@
+{
+  "name": "Serbull.ResponsiveUI.Editor",
+  "rootNamespace": "Serbull.ResponsiveUI.Editor",
+  "references": [
+    "Serbull.ResponsiveUI",
+    "UnityEngine.UI"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "autoReferenced": true
+}

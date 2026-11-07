@@ -1,0 +1,9 @@
+{
+  "name": "Serbull.ResponsiveUI",
+  "rootNamespace": "Serbull.ResponsiveUI",
+  "references": [
+    "UnityEngine.UI"
+  ],
+  "includePlatforms": [],
+  "autoReferenced": true
+}
