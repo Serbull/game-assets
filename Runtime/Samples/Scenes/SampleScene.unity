@@ -1286,11 +1286,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1555251170489542949, guid: 9fcbbd7299fcc4e6a9f00fa604ede77e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7262402269207614865, guid: 9fcbbd7299fcc4e6a9f00fa604ede77e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 80.26
       objectReference: {fileID: 0}
     - target: {fileID: 7817145006789480713, guid: 9fcbbd7299fcc4e6a9f00fa604ede77e, type: 3}
       propertyPath: m_Pivot.x
@@ -1374,7 +1374,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8446011551783636294, guid: 9fcbbd7299fcc4e6a9f00fa604ede77e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 80.26
       objectReference: {fileID: 0}
     - target: {fileID: 8516987498983109637, guid: 9fcbbd7299fcc4e6a9f00fa604ede77e, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
@@ -1771,7 +1771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RenderShadows: 1
   m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
+  m_RequiresOpaqueTextureOption: 1
   m_CameraType: 0
   m_Cameras: []
   m_RendererIndex: -1
@@ -2197,7 +2197,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1600, y: 900}
+  m_ReferenceResolution: {x: 900, y: 1600}
   m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0.352
   m_PhysicalUnit: 3
